@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import mpti.common.MakeBasicResponse;
 import mpti.common.response.BasicResponse;
 import mpti.domain.member.api.request.UserRequest;
-import mpti.domain.member.api.response.UserListResponse;
 import mpti.domain.member.api.response.UserResponse;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
@@ -18,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import mpti.domain.member.application.UserService;
 
-import java.io.FilterOutputStream;
 import java.io.IOException;
 
 // final
@@ -129,6 +127,7 @@ public class UserController {
     @ResponseBody
     public String uploadFile(FileDto fileDto) throws IOException {
         String url = s3Service.uploadFile(fileDto.getFile());
+        System.out.println(url);
         fileDto.setUrl(url);
         fileService.save(fileDto);
 

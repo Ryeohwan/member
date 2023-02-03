@@ -92,7 +92,6 @@ public class UserService {
         temp.setUpdateAt(LocalDateTime.now());
         temp.setPassword(check.getPassword());
         temp.setGender(check.getGender());
-        temp.setName(check.getName());
         String result = temp.getName();
         return result;
     }

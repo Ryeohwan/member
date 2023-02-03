@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("api/user/api/auth")
 public class AuthToUserController {
     private static final Logger logger = LoggerFactory.getLogger(AuthToUserController.class);
     private final UserRepository userRepository;

@@ -175,11 +175,11 @@ public class User {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        if(title != null) this.title = title;
     }
 
     public void setS3Url(String s3Url) {
-        this.s3Url = s3Url;
+        if(s3Url != null) this.s3Url = s3Url;
     }
 
     @Override

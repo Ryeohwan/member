@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import mpti.domain.member.application.UserService;
 
 import java.io.IOException;
+import java.util.List;
 
 // final
 @RequiredArgsConstructor
@@ -127,7 +128,7 @@ public class UserController {
     @ResponseBody
     public String uploadFile(FileDto fileDto) throws IOException {
         String url = s3Service.uploadFile(fileDto.getFile());
-        System.out.println(url);
+
         fileDto.setUrl(url);
         fileService.save(fileDto);
 

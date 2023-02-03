@@ -18,12 +18,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import mpti.domain.member.application.UserService;
 
+import java.io.FilterOutputStream;
 import java.io.IOException;
 
 // final
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("api/user")
 @RestController
 public class UserController {
     @Autowired
@@ -128,11 +129,10 @@ public class UserController {
     @ResponseBody
     public String uploadFile(FileDto fileDto) throws IOException {
         String url = s3Service.uploadFile(fileDto.getFile());
-
         fileDto.setUrl(url);
         fileService.save(fileDto);
 
-        return "redirect:/api/list";
+        return "success";
     }
 
 }

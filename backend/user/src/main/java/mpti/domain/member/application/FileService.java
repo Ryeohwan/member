@@ -16,7 +16,7 @@ public class FileService {
 
     public void save(FileDto fileDto) {
         User result = userRepository.findUserByEmail(fileDto.getEmail());
-        result.setS3Url(result.getS3Url());
+        result.setS3Url(fileDto.getUrl().toString());
     }
 
 }

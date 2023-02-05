@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import mpti.domain.member.application.UserService;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,7 +35,6 @@ public class UserController {
     final MakeBasicResponse makeBasicResponse;
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
-
 
 
     // email 중복체크
@@ -144,8 +144,19 @@ public class UserController {
         }else{
             return new ResponseEntity(makeBasicResponse.makeBasicResponse(SUCCESS, name), HttpStatus.OK);
         }
-
-
     }
+
+//    @PostMapping("/userList")
+//    @ResponseBody
+//    public ResponseEntity<BasicResponse<UserResponse>> checkName(List<String> ids){
+//        userService.
+//    }
+
+//    @PostMapping("/ptlog/count")
+//    @ResponseBody
+//    public ResponseEntity<BasicResponse<String>> counting(List<Integer> counts,){
+//        String result = userService.count(counts);
+//        return result;
+//    }
 
 }

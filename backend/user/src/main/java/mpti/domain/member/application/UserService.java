@@ -4,6 +4,7 @@ package mpti.domain.member.application;
 import lombok.RequiredArgsConstructor;
 import mpti.domain.member.api.request.UserRequest;
 import mpti.domain.member.api.response.UserResponse;
+import mpti.domain.member.dao.MemoRepository;
 import mpti.domain.member.dao.UserRepository;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
@@ -22,6 +23,7 @@ import java.util.List;
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
+    private final MemoRepository memoRepository;
     private EntityManager em;
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
@@ -92,6 +94,7 @@ public class UserService {
         temp.setUpdateAt(LocalDateTime.now());
         temp.setPassword(check.getPassword());
         temp.setGender(check.getGender());
+        temp.setUpdateAt(LocalDateTime.now());
         String result = temp.getName();
         return result;
     }
@@ -100,6 +103,12 @@ public class UserService {
         User temp = userRepository.findUserById(id);
         return temp.getName();
     }
+
+//    public String count(List<Integer> counts) {
+//        String result = userRepository.logupdate(counts);
+//        String memoResult = memoRepository.updateMemo();
+//
+//    }
 
 
 //    public List<UserResponse> findList(List<String> formList) {

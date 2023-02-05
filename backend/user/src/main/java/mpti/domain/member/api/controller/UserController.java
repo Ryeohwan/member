@@ -140,7 +140,7 @@ public class UserController {
     public ResponseEntity<BasicResponse<String>> checkName(@PathVariable Long id){
         String name = userService.checkName(id);
         if(name == null){
-            return new ResponseEntity(makeBasicResponse.makeBasicResponse(FAIL, null), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(makeBasicResponse.makeBasicResponse(FAIL, null), HttpStatus.NOT_FOUND);
         }else{
             return new ResponseEntity(makeBasicResponse.makeBasicResponse(SUCCESS, name), HttpStatus.OK);
         }

@@ -96,6 +96,11 @@ public class UserService {
         return result;
     }
 
+    public String checkName(Long id){
+        User temp = userRepository.findUserById(id);
+        return temp.getName();
+    }
+
 
 //    public List<UserResponse> findList(List<String> formList) {
 //    //

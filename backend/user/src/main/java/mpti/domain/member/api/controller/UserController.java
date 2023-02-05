@@ -117,7 +117,7 @@ public class UserController {
 //    @ResponseBody
 //    public ResponseEntity<BasicResponse<UserListResponse>> ptlog(UserRequest form){
 //
-//    }
+
 
     @GetMapping("/upload")
     public String goToUpload() {
@@ -133,6 +133,19 @@ public class UserController {
         fileService.save(fileDto);
 
         return "success";
+    }
+
+    @PostMapping("/name")
+    @ResponseBody
+    public ResponseEntity<BasicResponse<String>> checkName(Long id){
+        String name = userService.checkName(id);
+        if(name == null){
+            return new ResponseEntity(makeBasicResponse.makeBasicResponse(FAIL, null), HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity(makeBasicResponse.makeBasicResponse(SUCCESS, name), HttpStatus.OK);
+        }
+
+
     }
 
 }

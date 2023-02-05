@@ -8,6 +8,7 @@ import mpti.domain.member.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,6 +20,7 @@ public class FileService {
     public void save(FileDto fileDto) {
         User result = userRepository.findUserByEmail(fileDto.getEmail());
         result.setS3Url(fileDto.getUrl());
+        result.setUpdateAt(LocalDateTime.now());
     }
 
 }

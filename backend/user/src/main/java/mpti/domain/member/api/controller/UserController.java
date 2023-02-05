@@ -135,9 +135,9 @@ public class UserController {
         return "success";
     }
 
-    @PostMapping("/name")
+    @GetMapping("/name/{id}")
     @ResponseBody
-    public ResponseEntity<BasicResponse<String>> checkName(Long id){
+    public ResponseEntity<BasicResponse<String>> checkName(@PathVariable Long id){
         String name = userService.checkName(id);
         if(name == null){
             return new ResponseEntity(makeBasicResponse.makeBasicResponse(FAIL, null), HttpStatus.BAD_REQUEST);

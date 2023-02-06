@@ -10,7 +10,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://i8a803.p.ssafy.io:3001/mpti?serverTimezone=Asia/Seoul
-    username: root
+    username: ekdrms
     password: ehdrms
 
   jpa:

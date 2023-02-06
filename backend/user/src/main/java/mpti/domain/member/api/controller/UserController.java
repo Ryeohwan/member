@@ -131,7 +131,6 @@ public class UserController {
 
         fileDto.setUrl(url);
         fileService.save(fileDto);
-
         return "success";
     }
 

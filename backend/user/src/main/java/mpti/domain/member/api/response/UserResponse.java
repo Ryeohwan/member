@@ -3,11 +3,10 @@ package mpti.domain.member.api.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import mpti.domain.member.entity.User;
+import  org.springframework.http.HttpStatus;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 public class UserResponse {
@@ -22,6 +21,8 @@ public class UserResponse {
     @Column(updatable = false)
     LocalDateTime createAt;
     LocalDateTime updateAt;
+
+    HttpStatus status;
 
     public UserResponse() {
     }
@@ -68,5 +69,9 @@ public class UserResponse {
 
     public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public void setStatus(HttpStatus status) {
+        this.status = status;
     }
 }

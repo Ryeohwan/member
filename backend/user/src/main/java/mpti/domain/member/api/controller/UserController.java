@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import mpti.domain.member.api.request.UserRequest;
 import mpti.domain.member.api.response.DeleteResponse;
 import mpti.domain.member.api.response.IdResponse;
+import mpti.domain.member.api.response.UpdateResponse;
 import mpti.domain.member.api.response.UserResponse;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
@@ -64,12 +65,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity find(String email) {
         UserResponse result = userService.findByEmail(email);
-        if(result.getEmail() == null){
-            result.setStatus(HttpStatus.NOT_FOUND);
-            return ResponseEntity.ok(result);
-        }else{
-            return ResponseEntity.ok(result);
-        }
+        return ResponseEntity.ok(result);
     }
 
     // are you there?
@@ -88,13 +84,17 @@ public class UserController {
         String email = form.getEmail();
         String name = form.getName();
         userService.delete(email,name);
-        return ResponseEntity.ok(name);
+        DeleteResponse result = new DeleteResponse();
+        result.setName(name);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping ("update")
     @ResponseBody
     public ResponseEntity update(UserRequest form){
-        String result = userService.update(form);
+        String temp = userService.update(form);
+        UpdateResponse result = new UpdateResponse();
+        result.setStatus(temp);
         return ResponseEntity.ok(result);
     }
 
@@ -120,10 +120,12 @@ public class UserController {
     @ResponseBody
     public ResponseEntity uploadFile(FileDto fileDto) throws IOException {
         String url = s3Service.uploadFile(fileDto.getFile());
-
         fileDto.setUrl(url);
         fileService.save(fileDto);
-        return ResponseEntity.ok("success");
+        UpdateResponse result = new UpdateResponse();
+        result.setStatus(SUCCESS);
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/info/name/{id}")

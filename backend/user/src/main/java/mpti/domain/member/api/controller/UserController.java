@@ -3,22 +3,23 @@ package mpti.domain.member.api.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mpti.domain.member.api.request.UserRequest;
-import mpti.domain.member.api.response.DeleteResponse;
-import mpti.domain.member.api.response.IdResponse;
-import mpti.domain.member.api.response.UpdateResponse;
-import mpti.domain.member.api.response.UserResponse;
+import mpti.domain.member.api.response.*;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
 import mpti.domain.member.dto.FileDto;
 import mpti.domain.member.dto.UserDto;
 import mpti.domain.member.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import mpti.domain.member.application.UserService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
 
 // final
 @RequiredArgsConstructor
@@ -85,9 +86,19 @@ public class UserController {
         String name = form.getName();
         userService.delete(email,name);
         DeleteResponse result = new DeleteResponse();
-        result.setName(name);
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping("admin/delete")
+    @ResponseBody
+    public ResponseEntity adminDelete(User form){
+        String email = form.getEmail();
+        String temp = userService.delete(email);
+        DeleteResponse result = new DeleteResponse();
+        result.setResult(temp);
+        return ResponseEntity.ok(result);
+    }
+
 
     @PostMapping ("update")
     @ResponseBody
@@ -139,15 +150,37 @@ public class UserController {
 
 //    @PostMapping("/userList")
 //    @ResponseBody
-//    public ResponseEntity<BasicResponse<UserResponse>> checkName(List<String> ids){
-//        userService.
+//    public ResponseEntity findUserList(Long id){
+//        Page<UserResponse> result = userService.findList(id);
+//
 //    }
 
-//    @PostMapping("/ptlog/count")
-//    @ResponseBody
-//    public ResponseEntity<BasicResponse<String>> counting(List<Integer> counts,){
-//        String result = userService.count(counts);
-//        return result;
-//    }
+    @PostMapping("/count")
+    @ResponseBody
+    public ResponseEntity counting(@RequestBody List<String> form){
+        String temp = userService.ptUpdate(form);
+        UpdateResponse result = new UpdateResponse();
+        result.setStatus(temp);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/status/{email}")
+    @ResponseBody
+    public ResponseEntity userStatus(@PathVariable String email){
+        UserStatus result = userService.findStatus(email);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/admin/stop")
+    @ResponseBody
+    public ResponseEntity adminStop(Long id,  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date){
+        UserRequest temp = new UserRequest();
+        temp.setId(id);
+        temp.setStopUntil(date);
+        String result = userService.updateStop(temp);
+        return ResponseEntity.ok(result);
+    }
+
+
 
 }

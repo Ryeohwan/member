@@ -27,6 +27,17 @@ public class Memo {
         this.user = user;
     }
 
+    public void setRecord(String record) {
+        this.record = record;
+    }
+
+    public void setTrainer_id(Long trainer_id) {
+        this.trainer_id = trainer_id;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 
     public Memo() {
     }

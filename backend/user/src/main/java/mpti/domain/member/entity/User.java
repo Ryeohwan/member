@@ -67,7 +67,7 @@ public class User {
     @LastModifiedDate
     @Column(name = "update_at")
     private LocalDateTime updateAt;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime stopUntil;
 
 
@@ -143,35 +143,35 @@ public class User {
     }
 
     public void setCore(int core) {
-        if(updateAt != null)this.core = core;
+        if(updateAt != null)this.core += core;
     }
 
     public void setChest(int chest) {
-        if(updateAt != null)this.chest = chest;
+        if(updateAt != null)this.chest += chest;
     }
 
     public void setShoulder(int shoulder) {
-        if(updateAt != null)this.shoulder = shoulder;
+        if(updateAt != null)this.shoulder += shoulder;
     }
 
     public void setBiceps(int biceps) {
-        if(updateAt != null)this.biceps = biceps;
+        if(updateAt != null)this.biceps += biceps;
     }
 
     public void setTriceps(int triceps) {
-        if(updateAt != null)this.triceps = triceps;
+        if(updateAt != null)this.triceps += triceps;
     }
 
     public void setBack(int back) {
-        if(updateAt != null)this.back = back;
+        if(updateAt != null)this.back += back;
     }
 
     public void setLegs(int legs) {
-        if(updateAt != null)this.legs = legs;
+        if(updateAt != null)this.legs += legs;
     }
 
     public void setAerobic(int aerobic) {
-        if(updateAt != null)this.aerobic = aerobic;
+        if(updateAt != null)this.aerobic += aerobic;
     }
 
     public void setTitle(String title) {

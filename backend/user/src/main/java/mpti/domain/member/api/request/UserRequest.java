@@ -4,6 +4,7 @@ package mpti.domain.member.api.request;
 import lombok.Getter;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -14,25 +15,23 @@ import java.time.LocalDateTime;
 
 @Getter
 public class UserRequest {
-    // 회원가입할 때 담아갈 dto
-    @NotBlank(message = "닉네임을 입력해주세요.")
-    @Size(min = 2, max = 10, message = "닉네임은 2자 이상 10자 이하로 입력해주세요.")
+    Long id;
     String name;
-    @NotBlank(message = "이메일 주소를 입력해주세요.")
-    @Email(message = "올바른 이메일 주소를 입력해주세요.")
+
     String email;
-    @NotBlank(message = "비밀번호를 입력해주세요.")
+
     String password;
     int age;
     String gender;
-    @NotBlank(message = "휴대폰 번호를 입력해주세요.")
-    @Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})")
+
     String phone;
     String address;
     Memo memo;
     @Column(updatable = false)
     LocalDateTime createAt;
     LocalDateTime updateAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    LocalDateTime stopUntil;
 
     public UserRequest() {
     }
@@ -103,5 +102,11 @@ public class UserRequest {
         this.updateAt = updateAt;
     }
 
+    public void setStopUntil(LocalDateTime stopUntil) {
+        this.stopUntil = stopUntil;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -4,6 +4,7 @@ package mpti.domain.member.application;
 import lombok.RequiredArgsConstructor;
 import mpti.domain.member.api.request.UserRequest;
 import mpti.domain.member.api.response.UserResponse;
+import mpti.domain.member.api.response.UserStatus;
 import mpti.domain.member.dao.MemoRepository;
 import mpti.domain.member.dao.UserRepository;
 import mpti.domain.member.entity.Memo;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -76,8 +79,18 @@ public class UserService {
         }
     }
 
+
+
     public String delete(String email, String name){
         if(userRepository.deleteUserByEmailAndPassword(email,name) == 1){
+            return SUCCESS;
+        }else{
+            return FAIL;
+        }
+    }
+
+    public String delete(String email){
+        if(userRepository.deleteUserByEmail(email) == 1){
             return SUCCESS;
         }else{
             return FAIL;
@@ -99,27 +112,86 @@ public class UserService {
         return result;
     }
 
+    public String updateStop(UserRequest check){
+        Long id = check.getId();
+        LocalDateTime date = check.getStopUntil();
+        User temp = userRepository.findUserById(id);
+        temp.setStopUntil(date);
+        String result = temp.getName();
+        return result;
+    }
+
     public String checkName(Long id){
         User temp = userRepository.findUserById(id);
         return temp.getName();
     }
 
-//    public String count(List<Integer> counts) {
-//        String result = userRepository.logupdate(counts);
-//        String memoResult = memoRepository.updateMemo();
-//
-//    }
+    public String ptUpdate(List<String> form) {
+        User temp = userRepository.findUserByEmail(form.get(0));
+        Long trainer_id = Long.parseLong(form.get(1));
+        String memo = "";
+
+        for (int i = 1 ; i< form.size();i++) {
+            switch (form.get(i)){
+                case "biceps":
+                    temp.setBiceps(1);
+                    break;
+                case "triceps":
+                    temp.setTriceps(1);
+                    break;
+                case "back":
+                    temp.setBack(1);
+                    break;
+                case "legs":
+                    temp.setLegs(1);
+                    break;
+                case "chest":
+                    temp.setChest(1);
+                    break;
+                case "aerobic":
+                    temp.setAerobic(1);
+                    break;
+                case "core":
+                    temp.setCore(1);
+                    break;
+                case "shoulder":
+                    temp.setShoulder(1);
+                    break;
+                default:
+                    memo = form.get(i);
+                    break;
+            }
+        }
+
+        Memo mem = new Memo();
+        mem.setUser(temp);
+        mem.setTrainer_id(trainer_id);
+        mem.setRecord(memo);
+        mem.setDate(LocalDateTime.now());
+        memoRepository.save(mem);
+
+        temp.setUpdateAt(LocalDateTime.now());
+        return SUCCESS;
+    }
+
+    @Transactional(readOnly = true)
+    public UserStatus findStatus(String email) {
+        User temp = userRepository.findUserByEmail(email);
+        UserStatus result = new UserStatus();
+        result.setAerobic(temp.getAerobic());
+        result.setBack(temp.getBack());
+        result.setShoulder(temp.getShoulder());
+        result.setCore(temp.getCore());
+        result.setBiceps(temp.getBiceps());
+        result.setTriceps(temp.getTriceps());
+        result.setLegs(temp.getLegs());
+        result.setChest(temp.getChest());
+        return result;
+
+    }
 
 
-//    public List<UserResponse> findList(List<String> formList) {
-//    //
-//        List<User> users = userRepository.findUsersById(formList);
-//        for(User a : users){
-//            UserResponse temp = new UserResponse();
-//            temp.setName(a.getName());
-//            temp.setGender(a.getGender());
-//            temp.setEmail(a.getEmail());
+//    public Page<UserResponse> findList(Long id) {
 //
-//        }
 //    }
 }

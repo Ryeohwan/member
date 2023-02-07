@@ -3,6 +3,7 @@ package mpti.domain.member.api.response;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
 import  org.springframework.http.HttpStatus;
 
 import javax.persistence.Column;
@@ -22,6 +23,8 @@ public class UserResponse {
     LocalDateTime createAt;
     LocalDateTime updateAt;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    LocalDateTime stopUntil;
     HttpStatus status;
 
     public UserResponse() {

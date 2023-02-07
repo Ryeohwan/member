@@ -201,41 +201,9 @@ public class User {
                 '}';
     }
 
-    //    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", ptlog=" + ptlog +
-//                ", email='" + email + '\'' +
-//                ", name='" + name + '\'' +
-//                ", password='" + password + '\'' +
-//                ", age=" + age +
-//                ", gender='" + gender + '\'' +
-//                ", phone='" + phone + '\'' +
-//                ", address='" + address + '\'' +
-//                ", createAt=" + createAt +
-//                ", updateAt=" + updateAt +
-//                '}';
-//    }
-
-//    @Builder
-//    public User(UUID id, String name, Ptlog ptlog, String email, Role role, String password, int age, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt) {
-//        this.id = id;
-//        this.name = name;
-//        this.ptlog = ptlog;
-//        this.email = email;
-//        this.role = role;
-//        this.password = password;
-//        this.age = age;
-//        this.gender = gender;
-//        this.phone = phone;
-//        this.address = address;
-//        this.createAt = createAt;
-//        this.updateAt = updateAt;
-//    }
-
     @Builder
-    public User(long id, String name, Memo memo, String email, Role role, String password, int age, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt) {
+    public User(long id, String name, Memo memo, String email, Role role, String password, int age, String gender,
+                String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDateTime stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -247,6 +215,8 @@ public class User {
         this.address = address;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.s3Url = s3Url;
+        this.stopUntil = stopUntil;
     }
 
 

@@ -23,6 +23,9 @@ public class UserResponse {
     LocalDateTime createAt;
     LocalDateTime updateAt;
 
+    String s3Url;
+
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime stopUntil;
     HttpStatus status;
@@ -31,7 +34,8 @@ public class UserResponse {
     }
 
     @Builder
-    public UserResponse(String name, String email, int age, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt) {
+    public UserResponse(Long id,String name, String email, int age, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt,String s3Url,LocalDateTime stopUntil) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
@@ -40,6 +44,8 @@ public class UserResponse {
         this.address = address;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.s3Url = s3Url;
+        this.stopUntil = stopUntil;
     }
 
     public void setName(String name) {
@@ -76,5 +82,11 @@ public class UserResponse {
 
     public void setStatus(HttpStatus status) {
         this.status = status;
+    }
+
+    public  void setS3Url(String s3Url){this.s3Url = s3Url;}
+
+    public void setStopUntil(LocalDateTime stopUntil) {
+        this.stopUntil = stopUntil;
     }
 }

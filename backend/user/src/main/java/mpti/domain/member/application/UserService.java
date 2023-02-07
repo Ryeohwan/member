@@ -10,6 +10,8 @@ import mpti.domain.member.dao.UserRepository;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,6 +120,7 @@ public class UserService {
         LocalDateTime date = check.getStopUntil();
         User temp = userRepository.findUserById(id);
         temp.setStopUntil(date);
+        temp.setUpdateAt(LocalDateTime.now());
         String result = temp.getName();
         return result;
     }
@@ -192,7 +195,19 @@ public class UserService {
     }
 
 
-//    public Page<UserResponse> findList(List<Long> id) {
-//        Page<User> result = userRepository.findPageBy(id, QPageRequest)
-//    }
+    public Page<UserResponse> findList(int page,Long id) {
+        PageRequest pageRequest = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "email"));
+        Page<User> result = userRepository.findPageBy(id, pageRequest);
+        Page<UserResponse> toMap = result.map(m -> UserResponse.builder()
+                .name(m.getName())
+                .email(m.getEmail())
+                .gender(m.getGender())
+                .phone(m.getPhone())
+                .s3Url(m.getS3Url())
+                .stopUntil(m.getStopUntil())
+                .createAt(m.getCreateAt())
+                .build()
+        );
+        return toMap;
+    }
 }

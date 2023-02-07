@@ -21,6 +21,7 @@ import mpti.domain.member.application.UserService;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 // final
 @RequiredArgsConstructor
@@ -149,12 +150,12 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-//    @PostMapping("/userList")
-//    @ResponseBody
-//    public ResponseEntity findUserList(Long id){
-//        Page<UserResponse> result = userService.findList(id);
-//
-//    }
+    @PostMapping("/userList/{page}")
+    public ResponseEntity findUserList(@PathVariable int page, @RequestBody Map<Long , Long> body){
+        Long id = body.get("id");
+        Page<UserResponse> result = userService.findList(page,id);
+        return ResponseEntity.ok(result);
+    }
 
     @PostMapping("/count")
     @ResponseBody

@@ -1,5 +1,6 @@
 package mpti.domain.member.dao;
 
+import mpti.domain.member.api.response.UserResponse;
 import mpti.domain.member.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserById(Long id);
 
-    Page<User> findPageBy(List<Long> ids, PageRequest pageRequest);
+    Page<User> findPageBy(Long id, PageRequest pageRequest);
 
 }
 

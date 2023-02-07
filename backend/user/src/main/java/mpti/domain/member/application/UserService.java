@@ -192,7 +192,7 @@ public class UserService {
     }
 
 
-    public Page<UserResponse> findList(List<Long> id) {
-        Page<User> result = userRepository.findPageBy(id, QPageRequest)
-    }
+//    public Page<UserResponse> findList(List<Long> id) {
+//        Page<User> result = userRepository.findPageBy(id, QPageRequest)
+//    }
 }

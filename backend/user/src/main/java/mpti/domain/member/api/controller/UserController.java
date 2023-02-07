@@ -116,7 +116,7 @@ public class UserController {
     public ResponseEntity findAll(@PathVariable int page){
         Page<UserResponse> reult = userService.findAll(page);
         return ResponseEntity.ok(reult);
-
+        // why
     }
 
 //    @PostMapping("ptlog")

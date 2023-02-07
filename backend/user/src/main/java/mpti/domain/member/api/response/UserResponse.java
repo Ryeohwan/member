@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
 public class UserResponse {
     // 회원가입했을 때 담아서 갈 response
     Long id;

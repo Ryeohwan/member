@@ -111,12 +111,13 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-//    @PostMapping("list")
-//    @ResponseBody
-//    public ResponseEntity<BasicResponse<Page<UserResponse>>> list(List<String> formList){
-//        List<UserResponse> reult = userService.findList(formList);
-//
-//    }
+    @GetMapping("list/{page}")
+    @ResponseBody
+    public ResponseEntity findAll(@PathVariable int page){
+        Page<UserResponse> reult = userService.findAll(page);
+        return ResponseEntity.ok(reult);
+
+    }
 
 //    @PostMapping("ptlog")
 //    @ResponseBody

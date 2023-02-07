@@ -211,4 +211,19 @@ public class UserService {
         );
         return toMap;
     }
+
+    public Page<UserResponse> findAll(int page) {
+        PageRequest pageRequest = PageRequest.of(page,5,Sort.by(Sort.Direction.DESC,"id"));
+        Page<User> result = userRepository.findAllByEmailIsNotNull(pageRequest);
+        Page<UserResponse> toMap = result.map(m -> UserResponse.builder().name(m.getName())
+                .email(m.getEmail())
+                .gender(m.getGender())
+                .phone(m.getPhone())
+                .s3Url(m.getS3Url())
+                .stopUntil(m.getStopUntil())
+                .createAt(m.getCreateAt())
+                .build()
+        );
+        return toMap;
+    }
 }

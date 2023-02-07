@@ -10,6 +10,7 @@ import mpti.domain.member.dao.UserRepository;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -191,7 +192,7 @@ public class UserService {
     }
 
 
-//    public Page<UserResponse> findList(Long id) {
-//
-//    }
+    public Page<UserResponse> findList(List<Long> id) {
+        Page<User> result = userRepository.findPageBy(id, QPageRequest)
+    }
 }

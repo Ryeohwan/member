@@ -2,6 +2,7 @@ package mpti.domain.member.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mpti.domain.member.api.request.DateRequest;
 import mpti.domain.member.api.request.UserRequest;
 import mpti.domain.member.api.response.*;
 import mpti.domain.member.application.FileService;
@@ -173,7 +174,10 @@ public class UserController {
 
     @PostMapping("/admin/stop")
     @ResponseBody
-    public ResponseEntity adminStop(Long id,  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date){
+    public ResponseEntity adminStop(@RequestBody DateRequest form){
+        Long id = form.getId();
+        System.out.println(form.getStopUntil());
+        LocalDateTime date = form.getStopUntil();
         UserRequest temp = new UserRequest();
         temp.setId(id);
         temp.setStopUntil(date);

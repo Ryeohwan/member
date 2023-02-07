@@ -195,9 +195,10 @@ public class UserService {
     }
 
 
-    public Page<UserResponse> findList(int page,Long id) {
+    public Page<UserResponse> findList(int page,long id) {
+        System.out.println(page+","+id);
         PageRequest pageRequest = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "email"));
-        Page<User> result = userRepository.findPageBy(id, pageRequest);
+        Page<User> result = userRepository.findPageById(id, pageRequest);
         Page<UserResponse> toMap = result.map(m -> UserResponse.builder()
                 .name(m.getName())
                 .email(m.getEmail())

@@ -151,9 +151,10 @@ public class UserController {
     }
 
     @PostMapping("/userList/{page}")
-    public ResponseEntity findUserList(@PathVariable int page, @RequestBody Map<Long , Long> body){
-        Long id = body.get("id");
-        Page<UserResponse> result = userService.findList(page,id);
+    public ResponseEntity findUserList(@PathVariable int page, @RequestBody Map<String , String> body){
+        String id = body.get("id");
+        Long temp = Long.parseLong(id);
+        Page<UserResponse> result = userService.findList(page,temp);
         return ResponseEntity.ok(result);
     }
 

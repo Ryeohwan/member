@@ -25,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserById(Long id);
 
-    Page<User> findPageBy(Long id, PageRequest pageRequest);
+    Page<User> findPageById(Long id, PageRequest pageRequest);
 
 }
 

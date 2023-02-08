@@ -8,6 +8,7 @@ import  org.springframework.http.HttpStatus;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 public class UserResponse {
@@ -15,6 +16,8 @@ public class UserResponse {
     Long id;
     String name;
     String email;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    Date birth;
     int age;
     String gender;
     String phone;
@@ -34,12 +37,12 @@ public class UserResponse {
     }
 
     @Builder
-    public UserResponse(Long id,String name, String email, int age, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt,String s3Url,LocalDateTime stopUntil) {
+    public UserResponse(Long id,String name, String email, Date birth, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt,String s3Url,LocalDateTime stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.age = age;
         this.gender = gender;
+        this.birth = birth;
         this.phone = phone;
         this.address = address;
         this.createAt = createAt;
@@ -92,5 +95,9 @@ public class UserResponse {
 
     public void setStopUntil(LocalDateTime stopUntil) {
         this.stopUntil = stopUntil;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 }

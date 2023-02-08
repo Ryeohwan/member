@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 public class UserRequest {
@@ -23,6 +24,9 @@ public class UserRequest {
     String password;
     int age;
     String gender;
+
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    Date birth;
 
     String phone;
     String address;
@@ -36,11 +40,11 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public UserRequest(String name, String email, String password, int age, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt) {
+    public UserRequest(String name, String email, String password, Date birth, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.age = age;
+        this.birth = birth;
         this.gender = gender;
         this.phone = phone;
         this.address = address;
@@ -52,6 +56,7 @@ public class UserRequest {
     public User toEntity(){
         return User.builder()
                 .email(email)
+                .birth(birth)
                 .name(name)
                 .password(password)
                 .age(age)
@@ -108,5 +113,9 @@ public class UserRequest {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 }

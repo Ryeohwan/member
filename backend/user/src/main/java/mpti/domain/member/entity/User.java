@@ -54,7 +54,7 @@ public class User {
     // 하면 이거 json 으로 파싱할 때 비밀번호 정보는 주지 않는다고 한다.
     @Column(nullable = false)
     private String password;
-    private int age;
+
     private String gender;
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$" ,message = "핸드폰 번호의 양식과 맞지 않습니다. 01x-xxx(x)-xxxx")
     private String phone;
@@ -101,10 +101,6 @@ public class User {
     }
     public void setPassword(String password) {
         if(password != null) this.password = password;
-    }
-
-    public void setAge(int age) {
-        if(age != 0) this.age = age;
     }
 
     public void setGender(String gender) {
@@ -175,6 +171,8 @@ public class User {
         if(updateAt != null)this.aerobic += aerobic;
     }
 
+
+
     public void setTitle(String title) {
         if(title != null) this.title = title;
     }
@@ -191,7 +189,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 ", password='" + password + '\'' +
-                ", age=" + age +
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
@@ -202,16 +199,16 @@ public class User {
     }
 
     @Builder
-    public User(long id, String name, Memo memo, String email, Role role, String password, int age, String gender,
+    public User(long id, String name, Memo memo, String email, Role role, String password, int age, String gender, Date birth,
                 String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDateTime stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.role = role;
         this.password = password;
-        this.age = age;
         this.gender = gender;
         this.phone = phone;
+        this.birth = birth;
         this.address = address;
         this.createAt = createAt;
         this.updateAt = updateAt;

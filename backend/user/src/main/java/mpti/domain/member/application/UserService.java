@@ -48,6 +48,7 @@ public class UserService {
                 .age(user.getAge())
                 .phone(user.getPhone())
                 .address(user.getAddress())
+                .birth(user.getBirth())
                 .gender(user.getGender())
                 .name(user.getName())
                 .createAt(LocalDateTime.now())
@@ -66,7 +67,7 @@ public class UserService {
         User user1 = userRepository.findUserByEmail(email);
         UserResponse result = new UserResponse();
         result.setEmail(user1.getEmail());
-        result.setAge(user1.getAge());
+        result.setBirth(user1.getBirth());
         result.setName(user1.getName());
         result.setPhone(user1.getPhone());
         result.setAddress(user1.getAddress());
@@ -115,7 +116,7 @@ public class UserService {
         User temp = userRepository.findUserByEmailAndPassword(email,password);
         temp.setPhone(check.getPhone());
         temp.setAddress(check.getAddress());
-        temp.setAge(check.getAge());
+        temp.setBirth(check.getBirth());
         temp.setName(check.getName());
         temp.setPassword(check.getPassword());
         temp.setGender(check.getGender());
@@ -213,6 +214,7 @@ public class UserService {
                 .name(m.getName())
                 .email(m.getEmail())
                 .gender(m.getGender())
+                .birth(m.getBirth())
                 .phone(m.getPhone())
                 .s3Url(m.getS3Url())
                 .stopUntil(m.getStopUntil())
@@ -229,6 +231,7 @@ public class UserService {
                 .email(m.getEmail())
                 .gender(m.getGender())
                 .phone(m.getPhone())
+                .birth(m.getBirth())
                 .s3Url(m.getS3Url())
                 .stopUntil(m.getStopUntil())
                 .createAt(m.getCreateAt())

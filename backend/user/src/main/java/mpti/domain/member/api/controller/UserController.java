@@ -12,7 +12,6 @@ import mpti.domain.member.dto.UserDto;
 import mpti.domain.member.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,35 +45,24 @@ public class UserController {
         return ResponseEntity.ok(responseMessage);
     }
 
-    @GetMapping ("/test")
-    public ResponseEntity test() {
-        UserDto userDto = UserDto.builder().email("sdfsdafsdaf").build();
-        if(userDto == null){
-            System.out.println("null!");
-        }else{
-            System.out.println("here is it");
-        }
-        return ResponseEntity.ok("here is it");
-    }
-
 
     @PostMapping(value = "/join")
     @ResponseBody
-    public String create(UserRequest form){
+    public String create(@RequestBody UserRequest form){
         return userService.join(form);
     }
 
     @PostMapping("info") // 개인정보 조회
     @ResponseBody
-    public ResponseEntity find(String email) {
-        UserResponse result = userService.findByEmail(email);
+    public ResponseEntity find(@RequestBody UserRequest form) {
+        UserResponse result = userService.findByEmail(form.getEmail());
         return ResponseEntity.ok(result);
     }
 
     // are you there?
     @PostMapping("check")
     @ResponseBody
-    public ResponseEntity check(User form) {
+    public ResponseEntity check(@RequestBody User form) {
         String email = form.getEmail();
         String name = form.getName();
         Boolean result = userService.relog(email, name);
@@ -83,7 +71,7 @@ public class UserController {
 
     @PostMapping("delete")
     @ResponseBody
-    public ResponseEntity delete(User form) {
+    public ResponseEntity delete(@RequestBody User form) {
         String email = form.getEmail();
         String name = form.getName();
         userService.delete(email,name);
@@ -93,7 +81,7 @@ public class UserController {
 
     @PostMapping("admin/delete")
     @ResponseBody
-    public ResponseEntity adminDelete(User form){
+    public ResponseEntity adminDelete(@RequestBody User form){
         String email = form.getEmail();
         String temp = userService.delete(email);
         DeleteResponse result = new DeleteResponse();
@@ -104,7 +92,7 @@ public class UserController {
 
     @PostMapping ("update")
     @ResponseBody
-    public ResponseEntity update(UserRequest form){
+    public ResponseEntity update(@RequestBody UserRequest form){
         String temp = userService.update(form);
         UpdateResponse result = new UpdateResponse();
         result.setStatus(temp);
@@ -179,7 +167,6 @@ public class UserController {
     @ResponseBody
     public ResponseEntity adminStop(@RequestBody DateRequest form){
         Long id = form.getId();
-        System.out.println(form.getStopUntil());
         LocalDateTime date = form.getStopUntil();
         UserRequest temp = new UserRequest();
         temp.setId(id);

@@ -54,12 +54,15 @@ public class UserService {
                 .updateAt(LocalDateTime.now())
                 .password(user.getPassword())
                 .build();
+
+//        System.out.println("result = " + result);
         userRepository.save(result);
         return result.getName();
     }
 
     @Transactional(readOnly = true)
     public UserResponse findByEmail(String email){
+        System.out.println(email);
         User user1 = userRepository.findUserByEmail(email);
         UserResponse result = new UserResponse();
         result.setEmail(user1.getEmail());
@@ -85,6 +88,8 @@ public class UserService {
 
 
     public String delete(String email, String name){
+        int check = userRepository.deleteUserByEmailAndPassword(email,name);
+        System.out.println(check);
         if(userRepository.deleteUserByEmailAndPassword(email,name) == 1){
             return SUCCESS;
         }else{
@@ -93,7 +98,9 @@ public class UserService {
     }
 
     public String delete(String email){
-        if(userRepository.deleteUserByEmail(email) == 1){
+        int check = userRepository.deleteUserByEmail(email);
+        System.out.println(check);
+        if( check == 1){
             return SUCCESS;
         }else{
             return FAIL;
@@ -103,15 +110,18 @@ public class UserService {
     public String update(UserRequest check){
         String email = check.getEmail();
         String password = check.getPassword();
+        System.out.println(email);
         User temp = userRepository.findUserByEmailAndPassword(email,password);
         temp.setPhone(check.getPhone());
         temp.setAddress(check.getAddress());
         temp.setAge(check.getAge());
+        temp.setName(check.getName());
         temp.setUpdateAt(LocalDateTime.now());
         temp.setPassword(check.getPassword());
         temp.setGender(check.getGender());
         temp.setUpdateAt(LocalDateTime.now());
         String result = temp.getName();
+        System.out.println(result);
         return result;
     }
 

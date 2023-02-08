@@ -1,8 +1,11 @@
 package mpti.domain.member.api.request;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import lombok.Getter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+@Getter
 public class LoginRequest {
     @NotBlank
     @Email

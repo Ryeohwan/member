@@ -1,5 +1,8 @@
 package mpti.domain.member.api.response;
 
+import lombok.Getter;
+
+@Getter
 public class UserStatus {
     private int core,chest, shoulder, biceps, triceps,back,legs,aerobic;
 

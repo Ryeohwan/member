@@ -48,8 +48,17 @@ public class UserController {
 
     @PostMapping(value = "/join")
     @ResponseBody
-    public String create(@RequestBody UserRequest form){
-        return userService.join(form);
+    public ResponseEntity create(@RequestBody UserRequest form){
+
+        String result = userService.join(form);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping(value = "join/list")
+    @ResponseBody
+    public ResponseEntity joinList(@RequestBody List<UserRequest> list){
+        String result = userService.joinList(list);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("info") // 개인정보 조회

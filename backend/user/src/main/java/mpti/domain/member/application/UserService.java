@@ -12,15 +12,11 @@ import mpti.domain.member.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -45,7 +41,6 @@ public class UserService {
     public String join(UserRequest user) {
         User result = user.toEntity().builder()
                 .email(user.getEmail())
-                .age(user.getAge())
                 .phone(user.getPhone())
                 .address(user.getAddress())
                 .birth(user.getBirth())
@@ -238,5 +233,30 @@ public class UserService {
                 .build()
         );
         return toMap;
+    }
+
+    public String  joinList(List<UserRequest> list) {
+        for (UserRequest a: list) {
+            User temp = new User();
+            temp.setBirth(a.getBirth());
+            temp.setName(a.getName());
+            temp.setGender(a.getGender());
+            temp.setBirth(a.getBirth());
+            temp.setS3Url(a.getS3Url());
+            temp.setAddress(a.getAddress());
+            temp.setEmail(a.getEmail());
+            temp.setPhone(a.getPhone());
+            temp.setPassword(a.getPassword());
+            temp.setShoulder(a.getShoulder());
+            temp.setCore(a.getCore());
+            temp.setAerobic(a.getAerobic());
+            temp.setChest(a.getChest());
+            temp.setBiceps(a.getBiceps());
+            temp.setBack(a.getBack());
+            temp.setLegs(a.getLegs());
+            temp.setTriceps(a.getTriceps());
+            userRepository.save(temp);
+        }
+        return "finishk";
     }
 }

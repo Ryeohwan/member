@@ -199,7 +199,7 @@ public class User {
     }
 
     @Builder
-    public User(long id, String name, Memo memo, String email, Role role, String password, int age, String gender, Date birth,
+    public User(long id, String name, Memo memo, String email, Role role, String password,  String gender, Date birth,
                 String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDateTime stopUntil) {
         this.id = id;
         this.name = name;

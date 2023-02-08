@@ -131,7 +131,7 @@ public class UserService {
     }
 
     public String ptUpdate(List<String> form) {
-        User temp = userRepository.findUserByEmail(form.get(0));
+        User temp = userRepository.findUserById(Long.parseLong(form.get(0)));
         Long trainer_id = Long.parseLong(form.get(1));
         String memo = "";
 

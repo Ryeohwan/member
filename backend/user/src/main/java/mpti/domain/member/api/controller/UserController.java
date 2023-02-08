@@ -74,8 +74,7 @@ public class UserController {
     public ResponseEntity delete(@RequestBody User form) {
         String email = form.getEmail();
         String name = form.getName();
-        userService.delete(email,name);
-        DeleteResponse result = new DeleteResponse();
+        String result = userService.delete(email,name);
         return ResponseEntity.ok(result);
     }
 

@@ -255,8 +255,10 @@ public class UserService {
             temp.setBack(a.getBack());
             temp.setLegs(a.getLegs());
             temp.setTriceps(a.getTriceps());
+            temp.setRole(a.getRole());
             userRepository.save(temp);
         }
-        return "finishk";
+
+        return "a";
     }
 }

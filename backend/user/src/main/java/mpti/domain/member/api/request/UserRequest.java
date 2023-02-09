@@ -39,6 +39,8 @@ public class UserRequest {
 
     String s3Url;
 
+    String role;
+
     private int core,chest, shoulder, biceps, triceps,back,legs,aerobic;
 
     public void setCore(int core) {
@@ -156,5 +158,9 @@ public class UserRequest {
 
     public void setS3Url(String s3Url) {
         this.s3Url = s3Url;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

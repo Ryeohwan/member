@@ -49,7 +49,7 @@ public class User {
     @Email
     private String email;
 
-    private Role role;
+    private String role;
 
     // 하면 이거 json 으로 파싱할 때 비밀번호 정보는 주지 않는다고 한다.
     @Column(nullable = false)
@@ -127,7 +127,7 @@ public class User {
         this.memoList = memoList;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -140,35 +140,35 @@ public class User {
     }
 
     public void setCore(int core) {
-        if(updateAt != null)this.core += core;
+        this.core += core;
     }
 
     public void setChest(int chest) {
-        if(updateAt != null)this.chest += chest;
+        this.chest += chest;
     }
 
     public void setShoulder(int shoulder) {
-        if(updateAt != null)this.shoulder += shoulder;
+        this.shoulder += shoulder;
     }
 
     public void setBiceps(int biceps) {
-        if(updateAt != null)this.biceps += biceps;
+        this.biceps += biceps;
     }
 
     public void setTriceps(int triceps) {
-        if(updateAt != null)this.triceps += triceps;
+        this.triceps += triceps;
     }
 
     public void setBack(int back) {
-        if(updateAt != null)this.back += back;
+        this.back += back;
     }
 
     public void setLegs(int legs) {
-        if(updateAt != null)this.legs += legs;
+        this.legs += legs;
     }
 
     public void setAerobic(int aerobic) {
-        if(updateAt != null)this.aerobic += aerobic;
+        this.aerobic += aerobic;
     }
 
 
@@ -199,7 +199,7 @@ public class User {
     }
 
     @Builder
-    public User(long id, String name, Memo memo, String email, Role role, String password,  String gender, Date birth,
+    public User(long id, String name, Memo memo, String email, String role, String password,  String gender, Date birth,
                 String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDateTime stopUntil) {
         this.id = id;
         this.name = name;

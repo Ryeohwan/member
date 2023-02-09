@@ -203,7 +203,7 @@ public class UserService {
 
     public Page<UserResponse> findList(int page,long id) {
         System.out.println(page+","+id);
-        PageRequest pageRequest = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "email"));
+        PageRequest pageRequest = PageRequest.of(page, 8, Sort.by(Sort.Direction.DESC, "email"));
         Page<User> result = userRepository.findPageById(id, pageRequest);
         Page<UserResponse> toMap = result.map(m -> UserResponse.builder()
                 .name(m.getName())
@@ -220,7 +220,7 @@ public class UserService {
     }
 
     public Page<UserResponse> findAll(int page) {
-        PageRequest pageRequest = PageRequest.of(page,5,Sort.by(Sort.Direction.DESC,"id"));
+        PageRequest pageRequest = PageRequest.of(page,8,Sort.by(Sort.Direction.DESC,"id"));
         Page<User> result = userRepository.findAllByEmailIsNotNull(pageRequest);
         Page<UserResponse> toMap = result.map(m -> UserResponse.builder().name(m.getName())
                 .email(m.getEmail())

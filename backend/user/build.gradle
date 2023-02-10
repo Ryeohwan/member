@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.8'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+//	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" // 1
 }
 
 group = 'mpti'
@@ -23,6 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'com.querydsl:querydsl-jpa' // (2)
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     implementation 'org.jetbrains:annotations:23.0.0'
 
@@ -33,9 +35,14 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-
+	implementation 'com.squareup.okhttp3:okhttp:3.14.9'
 	implementation 'com.google.code.gson:gson:2.10.1'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+	implementation 'org.json:json:20201115'
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -51,3 +58,24 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// query dsl add -----------------------------------------------------------------------------
+
+//def querydslDir = "$buildDir/generated/querydsl" // (3)
+//
+//querydsl { // (4)
+//	jpa = true
+//	querydslSourcesDir = querydslDir
+//}
+//
+//sourceSets { // (5)
+//	main.java.srcDir querydslDir
+//}
+//
+//configurations { // (6)
+//	querydsl.extendsFrom compileClasspath
+//}
+//
+//compileQuerydsl { // (7)
+//	options.annotationProcessorPath = configurations.querydsl
+//}

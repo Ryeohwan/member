@@ -73,6 +73,7 @@ public class S3Service {
         String file = temp.split("/")[1];
         temp = temp.split("/")[0];
         String front = "";
+
         for (int i = 25; i < temp.length(); i++) {
             front += temp.charAt(i);
         }

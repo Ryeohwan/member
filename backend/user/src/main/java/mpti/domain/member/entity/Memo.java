@@ -1,11 +1,13 @@
 package mpti.domain.member.entity;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Table
+@Getter
 @Entity
 public class Memo {
     @Id
@@ -19,7 +21,9 @@ public class Memo {
 
     @Column()
     private String record; // 일단 날짜랑 트레이너
-    private Long trainer_id;
+
+    @Column(name ="trainer_id")
+    private Long trainerId;
 
     private LocalDateTime date;
 
@@ -31,8 +35,8 @@ public class Memo {
         this.record = record;
     }
 
-    public void setTrainer_id(Long trainer_id) {
-        this.trainer_id = trainer_id;
+    public void setTrainerId(Long trainerId) {
+        this.trainerId = trainerId;
     }
 
     public void setDate(LocalDateTime date) {

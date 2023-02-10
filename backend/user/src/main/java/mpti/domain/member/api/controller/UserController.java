@@ -8,17 +8,14 @@ import mpti.domain.member.api.response.*;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
 import mpti.domain.member.dto.FileDto;
-import mpti.domain.member.dto.UserDto;
 import mpti.domain.member.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import mpti.domain.member.application.UserService;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -69,22 +66,13 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    // are you there?
-    @PostMapping("check")
-    @ResponseBody
-    public ResponseEntity check(@RequestBody User form) {
-        String email = form.getEmail();
-        String name = form.getName();
-        Boolean result = userService.relog(email, name);
-        return ResponseEntity.ok(result);
-    }
-
     @PostMapping("delete")
     @ResponseBody
     public ResponseEntity delete(@RequestBody User form) {
         String email = form.getEmail();
-        String name = form.getName();
-        String result = userService.delete(email,name);
+        String temp = userService.delete(email);
+        DeleteResponse result = new DeleteResponse();
+        result.setResult(temp);
         return ResponseEntity.ok(result);
     }
 
@@ -113,13 +101,7 @@ public class UserController {
     public ResponseEntity findAll(@PathVariable int page){
         Page<UserResponse> reult = userService.findAll(page);
         return ResponseEntity.ok(reult);
-        // why
     }
-
-//    @PostMapping("ptlog")
-//    @ResponseBody
-//    public ResponseEntity<BasicResponse<UserListResponse>> ptlog(UserRequest form){
-//
 
 
     @GetMapping("/upload")
@@ -150,9 +132,11 @@ public class UserController {
 
     @PostMapping("/userList/{page}")
     public ResponseEntity findUserList(@PathVariable int page, @RequestBody Map<String , String> body){
+        // trainer_ id
         String id = body.get("id");
         Long temp = Long.parseLong(id);
-        Page<UserResponse> result = userService.findList(page,temp);
+
+        Page<UserResponse> result = userService.findTrainee(temp,page);
         return ResponseEntity.ok(result);
     }
 
@@ -184,6 +168,8 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-
+//    @GetMapping("/userMemo/{trainerid}")
+//    public ResponseEntity CheckEmailDuplicated(@PathVariable String trainerid) {
+//    }
 
 }

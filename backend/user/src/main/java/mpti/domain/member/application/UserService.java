@@ -14,10 +14,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @RequiredArgsConstructor
@@ -72,16 +76,6 @@ public class UserService {
         result.setS3Url(user1.getS3Url());
         return result;
     }
-
-    @Transactional(readOnly = true)
-    public Boolean relog(String email, String name) {
-        if(userRepository.findUserByEmailAndPassword(email,name).getEmail() == null){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
 
 
     public String delete(String email, String name){
@@ -138,7 +132,7 @@ public class UserService {
 
     public String ptUpdate(List<String> form) {
         User temp = userRepository.findUserById(Long.parseLong(form.get(0)));
-        Long trainer_id = Long.parseLong(form.get(1));
+        Long trainerId = Long.parseLong(form.get(1));
         String memo = "";
 
         for (int i = 1 ; i< form.size();i++) {
@@ -172,10 +166,9 @@ public class UserService {
                     break;
             }
         }
-
         Memo mem = new Memo();
         mem.setUser(temp);
-        mem.setTrainer_id(trainer_id);
+        mem.setTrainerId(trainerId);
         mem.setRecord(memo);
         mem.setDate(LocalDateTime.now());
         memoRepository.save(mem);
@@ -260,5 +253,31 @@ public class UserService {
         }
 
         return "a";
+    }
+
+
+    public Page<UserResponse> findTrainee(Long temp,int page) {
+        List<Memo> list = memoRepository.findAllByTrainerId(temp);
+        List<User> ids = new ArrayList<>();
+        for (Memo a: list) {
+            ids.add(a.getUser());
+        }
+        Set<User> set = new HashSet<User>(ids);
+        List<User> newList = new ArrayList<User>(set);
+
+
+        Page<User> pageList = (Page<User>) newList;
+        PageRequest pageRequest = PageRequest.of(page, 8, Sort.by(Sort.Direction.DESC, "id"));
+        Page<UserResponse> toMap = pageList.map(m -> UserResponse.builder().name(m.getName())
+                .email(m.getEmail())
+                .gender(m.getGender())
+                .phone(m.getPhone())
+                .birth(m.getBirth())
+                .s3Url(m.getS3Url())
+                .stopUntil(m.getStopUntil())
+                .createAt(m.getCreateAt())
+                .build()
+        );
+        return toMap;
     }
 }

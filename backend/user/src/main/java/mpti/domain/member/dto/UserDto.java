@@ -23,7 +23,8 @@ public class UserDto {
     private LocalDateTime updateAt;
 
     @Builder
-    public UserDto(String email, String name, String password, int age, String gender, String phone, String address,  LocalDateTime createAt, LocalDateTime updateAt) {
+    public UserDto(Long id,String email, String name, String password, int age, String gender, String phone, String address,  LocalDateTime createAt, LocalDateTime updateAt) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;

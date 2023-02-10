@@ -43,6 +43,8 @@ public class UserRequest {
 
     private int core,chest, shoulder, biceps, triceps,back,legs,aerobic;
 
+
+
     public void setCore(int core) {
         this.core = core;
     }
@@ -78,7 +80,8 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public UserRequest(String name, String email, String password, Date birth, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt) {
+    public UserRequest(Long id,String name, String email, String password, Date birth, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -93,6 +96,7 @@ public class UserRequest {
 
     public User toEntity(){
         return User.builder()
+                .id(id)
                 .email(email)
                 .birth(birth)
                 .name(name)

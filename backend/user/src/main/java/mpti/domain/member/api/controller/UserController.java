@@ -130,7 +130,7 @@ public class UserController {
     @PostMapping("/upload")
     @ResponseBody
     public ResponseEntity uploadFile(FileDto fileDto) throws IOException {
-        String url = s3Service.uploadFile(fileDto.getFile());
+        String url = s3Service.uploadFile(fileDto.getFile(),fileDto.getEmail());
         fileDto.setUrl(url);
         fileService.save(fileDto);
         UpdateResponse result = new UpdateResponse();

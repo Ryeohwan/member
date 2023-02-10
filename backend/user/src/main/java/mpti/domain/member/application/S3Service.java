@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -21,7 +23,7 @@ public class S3Service {
     private final AmazonS3 amazonS3;
 
     @Transactional
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
+    public String uploadFile(MultipartFile multipartFile, String email) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
 
         //파일 형식 구하기
@@ -43,12 +45,13 @@ public class S3Service {
                 contentType = "text/csv";
                 break;
         }
+        String user = email.split("@")[0];
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
+            System.out.println(metadata);
             metadata.setContentType(contentType);
-
-            amazonS3.putObject(new PutObjectRequest(bucket, fileName, multipartFile.getInputStream(), metadata)
+            amazonS3.putObject(new PutObjectRequest(bucket, user, multipartFile.getInputStream(), metadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (AmazonServiceException e) {
             e.printStackTrace();
@@ -63,6 +66,23 @@ public class S3Service {
         for (S3ObjectSummary object: objectSummaries) {
             System.out.println("object = " + object.toString());
         }
-        return amazonS3.getUrl(bucket, fileName).toString();
+
+        String temp = amazonS3.getUrl(bucket, user).toString();
+        String https = temp.split("//")[0];
+        temp = temp.split("//")[1];
+        String file = temp.split("/")[1];
+        temp = temp.split("/")[0];
+        String front = "";
+        for (int i = 25; i < temp.length(); i++) {
+            front += temp.charAt(i);
+        }
+        front += "/";
+        for (int i = 0; i < 24; i++) {
+            front += temp.charAt(i);
+        }
+        String result = https + "//"+ front + "/" + file;
+
+
+        return result;
     }
 }

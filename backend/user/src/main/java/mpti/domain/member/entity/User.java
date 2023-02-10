@@ -115,13 +115,11 @@ public class User {
         if(address != null) this.address = address;
     }
 
-
     public void setUpdateAt(LocalDateTime updateAt) {
         if(updateAt != null) this.updateAt = updateAt;
     }
 
     public void setProvider(String provider) {if(provider != null)this.provider = provider;}
-
 
     public void setMemoList(List<Memo> memoList) {
         this.memoList = memoList;
@@ -170,8 +168,6 @@ public class User {
     public void setAerobic(int aerobic) {
         this.aerobic += aerobic;
     }
-
-
 
     public void setTitle(String title) {
         if(title != null) this.title = title;

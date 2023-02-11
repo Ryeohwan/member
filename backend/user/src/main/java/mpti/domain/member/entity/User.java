@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,8 +69,8 @@ public class User {
     @LastModifiedDate
     @Column(name = "update_at")
     private LocalDateTime updateAt;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime stopUntil;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate stopUntil;
 
 
     private String provider;
@@ -133,7 +134,7 @@ public class User {
         this.birth = birth;
     }
 
-    public void setStopUntil(LocalDateTime stopUntil) {
+    public void setStopUntil(LocalDate stopUntil) {
         this.stopUntil = stopUntil;
     }
 
@@ -196,7 +197,7 @@ public class User {
 
     @Builder
     public User(long id, String name, Memo memo, String email, String role, String password,  String gender, Date birth,
-                String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDateTime stopUntil) {
+                String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;

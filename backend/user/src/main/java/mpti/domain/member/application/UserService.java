@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -117,7 +118,7 @@ public class UserService {
 
     public String updateStop(UserRequest check){
         Long id = check.getId();
-        LocalDateTime date = check.getStopUntil();
+        LocalDate date = check.getStopUntil();
         User temp = userRepository.findUserById(id);
         temp.setStopUntil(date);
         temp.setUpdateAt(LocalDateTime.now());

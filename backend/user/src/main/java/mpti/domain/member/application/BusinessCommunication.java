@@ -68,7 +68,6 @@ public class BusinessCommunication {
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()){
                 String st = response.body().string();
-                System.out.println(st);
                 list = gson.fromJson(st,type);
             }
         } catch (IOException e) {

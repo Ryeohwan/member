@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -34,8 +35,8 @@ public class UserRequest {
     @Column(updatable = false)
     LocalDateTime createAt;
     LocalDateTime updateAt;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime stopUntil;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    LocalDate stopUntil;
 
     String s3Url;
 
@@ -80,7 +81,7 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public UserRequest(Long id,String name, String email, String password, Date birth, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt) {
+    public UserRequest(Long id,String name, String email, String password, Date birth, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt,LocalDate stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -105,7 +106,9 @@ public class UserRequest {
                 .address(address)
                 .memo(memo)
                 .createAt(createAt)
-                .updateAt(updateAt).build();
+                .updateAt(updateAt)
+                .stopUntil(stopUntil)
+                .build();
     }
 
     public void setName(String name) {
@@ -148,7 +151,7 @@ public class UserRequest {
         this.updateAt = updateAt;
     }
 
-    public void setStopUntil(LocalDateTime stopUntil) {
+    public void setStopUntil(LocalDate stopUntil) {
         this.stopUntil = stopUntil;
     }
 

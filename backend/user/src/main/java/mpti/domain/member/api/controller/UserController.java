@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import mpti.domain.member.application.UserService;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -137,10 +138,10 @@ public class UserController {
     @GetMapping("/userList/{page}")
     public ResponseEntity findUserList(@PathVariable Long page){
         // trainer_ id
-        System.out.println(page);
+
         List<BusinessDto> list = businessCommunication.getIds(page);
-        System.out.println(list.get(0));
-//        Page<UserResponse> result = userService.findTrainee(page,page);
+        System.out.println(list.get(0).getUserName());
+//      Page<UserResponse> result = userService.findTrainee(page,page);
         return ResponseEntity.ok("result");
     }
 
@@ -164,7 +165,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity adminStop(@RequestBody DateRequest form){
         Long id = form.getId();
-        LocalDateTime date = form.getStopUntil();
+        LocalDate date = form.getStopUntil();
         UserRequest temp = new UserRequest();
         temp.setId(id);
         temp.setStopUntil(date);

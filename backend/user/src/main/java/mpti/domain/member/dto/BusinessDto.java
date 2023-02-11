@@ -21,7 +21,7 @@ public class BusinessDto {
     private int year,month,day,hour;
     private String sessionId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private LocalDateTime createdAt;
 
     public void setId(Long id) {

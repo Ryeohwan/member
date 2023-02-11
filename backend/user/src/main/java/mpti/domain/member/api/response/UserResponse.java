@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import  org.springframework.http.HttpStatus;
 
 import javax.persistence.Column;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -29,15 +30,15 @@ public class UserResponse {
     String s3Url;
 
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime stopUntil;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    LocalDate stopUntil;
     HttpStatus status;
 
     public UserResponse() {
     }
 
     @Builder
-    public UserResponse(Long id,String name, String email, Date birth, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt,String s3Url,LocalDateTime stopUntil) {
+    public UserResponse(Long id, String name, String email, Date birth, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -93,7 +94,7 @@ public class UserResponse {
 
     public  void setS3Url(String s3Url){this.s3Url = s3Url;}
 
-    public void setStopUntil(LocalDateTime stopUntil) {
+    public void setStopUntil(LocalDate stopUntil) {
         this.stopUntil = stopUntil;
     }
 

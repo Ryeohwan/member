@@ -1,7 +1,14 @@
 package mpti.domain.member.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Getter;
+import org.intellij.lang.annotations.Pattern;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,10 +17,11 @@ public class BusinessDto {
     private Long trainerId;
     private String trainerName;
     private Long userId;
-
     private String userName;
     private int year,month,day,hour;
     private String sessionId;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
     public void setId(Long id) {
@@ -55,6 +63,7 @@ public class BusinessDto {
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
+
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;

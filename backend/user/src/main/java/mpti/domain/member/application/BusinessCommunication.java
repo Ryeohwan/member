@@ -1,59 +1,79 @@
 package mpti.domain.member.application;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import lombok.RequiredArgsConstructor;
 import mpti.domain.member.dto.BusinessDto;
-import mpti.domain.member.entity.User;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
 public class BusinessCommunication {
 
-    private final Gson gson;
     private OkHttpClient client = new OkHttpClient();
 
     @Value("${app.business.url}")
     private String SERVER_URL;
 
-    public BusinessDto isValidDB(Long trainerId) {
+    Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+        @Override
+        public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        }
 
-//        Map<String, String> TokenValidrequest = new HashMap<>();
-//        TokenValidrequest.put("refresh_token", refreshToken);
+    }).registerTypeAdapter(LocalDateTime.class,  new JsonDeserializer<LocalDateTime>(){
+        @Override
+        public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
+            return LocalDateTime.parse(json.getAsString(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        }
+    }).create();
+
+
+    public List<BusinessDto> getIds(Long trainerId) {
+        String trainer = trainerId.toString();
+        SERVER_URL += "/"+trainer;
+
         BusinessDto bdto = new BusinessDto();
         bdto.setTrainerId(trainerId);
 
         String json = gson.toJson(bdto);
-        List<Long> result = new ArrayList<>();
+
         RequestBody requestBody = RequestBody.create(MediaType.get("application/json; charset=utf-8"), json);
         Request request = new Request.Builder()
                 .url(SERVER_URL)
-                .post(requestBody)
                 .build();
 
-        Gson gson = new Gson();
         Type type = new TypeToken<List<BusinessDto>>() {}.getType();
 
-//        List<BusinessDto> bdtos = gson.fromJson(jsonArray.toString(), type);
+        List<BusinessDto> list = new ArrayList<>();
+
+
 
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()){
                 String st = response.body().string();
-                bdto = gson.fromJson(st,BusinessDto.class);
+                System.out.println(st);
+                list = gson.fromJson(st,type);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-            return bdto;
-//        return tokenDto.getState();
+            return list;
     }
 }

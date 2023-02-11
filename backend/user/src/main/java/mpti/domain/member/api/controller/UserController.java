@@ -5,8 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import mpti.domain.member.api.request.DateRequest;
 import mpti.domain.member.api.request.UserRequest;
 import mpti.domain.member.api.response.*;
+import mpti.domain.member.application.BusinessCommunication;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
+import mpti.domain.member.dto.BusinessDto;
 import mpti.domain.member.dto.FileDto;
 import mpti.domain.member.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class UserController {
 
     private final S3Service s3Service;
     private final FileService fileService;
+
+    private final BusinessCommunication businessCommunication;
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
@@ -130,14 +134,14 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/userList/{page}")
-    public ResponseEntity findUserList(@PathVariable int page, @RequestBody Map<String , String> body){
+    @GetMapping("/userList/{page}")
+    public ResponseEntity findUserList(@PathVariable Long page){
         // trainer_ id
-        String id = body.get("id");
-        Long temp = Long.parseLong(id);
-
-        Page<UserResponse> result = userService.findTrainee(temp,page);
-        return ResponseEntity.ok(result);
+        System.out.println(page);
+        List<BusinessDto> list = businessCommunication.getIds(page);
+        System.out.println(list.get(0));
+//        Page<UserResponse> result = userService.findTrainee(page,page);
+        return ResponseEntity.ok("result");
     }
 
     @PostMapping("/count")

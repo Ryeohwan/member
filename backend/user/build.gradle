@@ -38,9 +38,12 @@ dependencies {
 	implementation 'com.squareup.okhttp3:okhttp:3.14.9'
 	implementation 'com.google.code.gson:gson:2.10.1'
 	implementation 'org.json:json:20201115'
+//	implementation 'org.assertj:assertj-core:3.22.0'  // 이건 json 으로 들어오는 LocalDateTime 을 역/직렬화할 때 쓸 lists를 쓰기 위함
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.0'
+
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-
 
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	compileOnly 'org.projectlombok:lombok'

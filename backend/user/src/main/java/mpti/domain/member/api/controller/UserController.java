@@ -135,11 +135,10 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/userList/{page}")
-    public ResponseEntity findUserList(@PathVariable Long page){
+    @PostMapping("/userList/{page}")
+    public ResponseEntity findUserList(@PathVariable Long page ,@RequestBody UserRequest form){
         // trainer_ id
-
-        List<BusinessDto> list = businessCommunication.getIds(page);
+        List<BusinessDto> list = businessCommunication.getIds(form.getId());
 
         List<BusinessRequest> temp = new ArrayList<>();
         for (BusinessDto a: list) {

@@ -45,12 +45,12 @@ public class BusinessCommunication {
     }).create();
 
 
-    public List<BusinessDto> getIds(Long trainerId) {
-        String trainer = trainerId.toString();
+    public List<BusinessDto> getIds(Long id) {
+        String trainer = id.toString();
         SERVER_URL += "/"+trainer;
 
         BusinessDto bdto = new BusinessDto();
-        bdto.setTrainerId(trainerId);
+        bdto.setTrainerId(id);
 
         String json = gson.toJson(bdto);
 

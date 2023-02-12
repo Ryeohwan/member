@@ -29,5 +29,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByEmailIsNotNull(PageRequest pageRequest);
 
+
 }
 

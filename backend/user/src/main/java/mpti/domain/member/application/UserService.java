@@ -3,13 +3,16 @@ package mpti.domain.member.application;
 
 import lombok.RequiredArgsConstructor;
 import mpti.domain.member.api.request.UserRequest;
+import mpti.domain.member.api.response.TraineeListResponse;
 import mpti.domain.member.api.response.UserResponse;
 import mpti.domain.member.api.response.UserStatus;
 import mpti.domain.member.dao.MemoRepository;
 import mpti.domain.member.dao.UserRepository;
+import mpti.domain.member.dto.BusinessRequest;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -257,28 +260,38 @@ public class UserService {
     }
 
 
-    public Page<UserResponse> findTrainee(Long temp,int page) {
-        List<Memo> list = memoRepository.findAllByTrainerId(temp);
-        List<User> ids = new ArrayList<>();
-        for (Memo a: list) {
-            ids.add(a.getUser());
+    public Page<TraineeListResponse> findTrainee(List<BusinessRequest> temp, Long page) {
+        int nPage = page.intValue();
+
+        List<User> userList = new ArrayList<>();
+
+        for (BusinessRequest a: temp) {
+            userList.add(userRepository.findUserById(a.getId()));
         }
-        Set<User> set = new HashSet<User>(ids);
-        List<User> newList = new ArrayList<User>(set);
+
+        List<TraineeListResponse> result = new ArrayList<>();
+        for (int i = 0; i < userList.size(); i++) {
+            TraineeListResponse a = new TraineeListResponse();
+
+            int one = temp.get(i).getHour();
+            int two = one + 1;
+            String nStart = Integer.toString(one) + ":00 ~ ";
+            String nEnd = Integer.toString(two) + ":00";
+            String fHour = nStart + nEnd;
+            a.setHour(fHour);
+
+            a.setId(userList.get(i).getId());
+            a.setName(userList.get(i).getName());
+            a.setGender(userList.get(i).getGender());
+            a.setEmail(userList.get(i).getEmail());
+            a.setS3Url(userList.get(i).getS3Url());
+            result.add(a);
+        }
 
 
-        Page<User> pageList = (Page<User>) newList;
-        PageRequest pageRequest = PageRequest.of(page, 8, Sort.by(Sort.Direction.DESC, "id"));
-        Page<UserResponse> toMap = pageList.map(m -> UserResponse.builder().name(m.getName())
-                .email(m.getEmail())
-                .gender(m.getGender())
-                .phone(m.getPhone())
-                .birth(m.getBirth())
-                .s3Url(m.getS3Url())
-                .stopUntil(m.getStopUntil())
-                .createAt(m.getCreateAt())
-                .build()
-        );
-        return toMap;
+        PageRequest pageRequest = PageRequest.of(nPage, 8);
+        Page<TraineeListResponse> userPage = new PageImpl<>(result, pageRequest, result.size());
+
+        return userPage;
     }
 }

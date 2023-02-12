@@ -62,6 +62,8 @@ public class User {
     private String address;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date birth;
+
+
     @CreatedDate
     @Column(name = "create_at")
     private LocalDateTime createAt;

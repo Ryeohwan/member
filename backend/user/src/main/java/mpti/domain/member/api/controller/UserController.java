@@ -9,6 +9,7 @@ import mpti.domain.member.application.BusinessCommunication;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
 import mpti.domain.member.dto.BusinessDto;
+import mpti.domain.member.dto.BusinessRequest;
 import mpti.domain.member.dto.FileDto;
 import mpti.domain.member.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,7 @@ import mpti.domain.member.application.UserService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // final
 @RequiredArgsConstructor
@@ -140,9 +140,18 @@ public class UserController {
         // trainer_ id
 
         List<BusinessDto> list = businessCommunication.getIds(page);
-        System.out.println(list.get(0).getUserName());
-//      Page<UserResponse> result = userService.findTrainee(page,page);
-        return ResponseEntity.ok("result");
+
+        List<BusinessRequest> temp = new ArrayList<>();
+        for (BusinessDto a: list) {
+            BusinessRequest b = new BusinessRequest();
+            b.setId(a.getId());
+            b.setHour(a.getHour());
+            temp.add(b);
+        }
+        Set<BusinessRequest> sorted = new HashSet<>(temp);
+        List<BusinessRequest> ids = new ArrayList<>(sorted);
+        Page<TraineeListResponse> result = userService.findTrainee(ids,page);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/count")

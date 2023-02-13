@@ -285,9 +285,6 @@ public class UserService {
             userList.add(userRepository.findUserById(a.getId()));
         }
 
-        for (User a : userList) {
-            System.out.println(a.getName());
-        }
 
         List<TraineeListResponse> result = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {

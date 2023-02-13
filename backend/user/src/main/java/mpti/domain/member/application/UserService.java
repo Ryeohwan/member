@@ -314,7 +314,7 @@ public class UserService {
     }
 
     public Page<Memo> findPtStatus(Long id,int page) {
-        PageRequest pageRequest = PageRequest.of(page,8);
+        PageRequest pageRequest = PageRequest.of(page,4);
         Page<Memo> result = memoRepository.findMemoByUserId(id,pageRequest);
 
         return result;

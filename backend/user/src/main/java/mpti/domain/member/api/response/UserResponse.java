@@ -19,8 +19,7 @@ public class UserResponse {
 
     int age;
     String email;
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    Date birth;
+    LocalDate birth;
     String gender;
     String phone;
     String address;
@@ -39,7 +38,7 @@ public class UserResponse {
     }
 
     @Builder
-    public UserResponse(Long id, String name, int age,String email, Date birth, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
+    public UserResponse(Long id, String name, int age,String email, LocalDate birth, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -102,7 +101,7 @@ public class UserResponse {
         this.stopUntil = stopUntil;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 }

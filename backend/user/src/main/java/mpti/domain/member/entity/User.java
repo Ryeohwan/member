@@ -52,8 +52,7 @@ public class User {
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$" ,message = "핸드폰 번호의 양식과 맞지 않습니다. 01x-xxx(x)-xxxx")
     private String phone;
     private String address;
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date birth;
+    private LocalDate birth;
 
 
     @CreatedDate
@@ -125,7 +124,7 @@ public class User {
         this.role = role;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 
@@ -191,7 +190,7 @@ public class User {
     }
 
     @Builder
-    public User(long id, String name,int age, Memo memo, String email, String role, String password,  String gender, Date birth,
+    public User(long id, String name,int age, Memo memo, String email, String role, String password,  String gender, LocalDate birth,
                 String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
         this.id = id;
         this.name = name;

@@ -26,8 +26,7 @@ public class UserRequest {
     int age;
     String gender;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
-    Date birth;
+    LocalDate birth;
 
     String phone;
     String address;
@@ -84,7 +83,7 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public UserRequest(Long id,String name, String email, String password, Date birth, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt,LocalDate stopUntil) {
+    public UserRequest(Long id,String name, String email, String password, LocalDate birth, String gender, String phone, String address, Memo memo, LocalDateTime createAt, LocalDateTime updateAt,LocalDate stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -100,7 +99,6 @@ public class UserRequest {
 
     public User toEntity(){
         return User.builder()
-                .id(id)
                 .email(email)
                 .birth(birth)
                 .name(name)
@@ -162,7 +160,7 @@ public class UserRequest {
         this.id = id;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 

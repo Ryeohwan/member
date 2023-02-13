@@ -8,7 +8,7 @@ import mpti.domain.member.api.request.LoginRequest;
 import mpti.domain.member.api.request.SocialSignUpRequest;
 import mpti.domain.member.dao.UserRepository;
 import mpti.domain.member.entity.User;
-import mpti.common.exceptions.BadRequestException;
+import mpti.common.errors.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

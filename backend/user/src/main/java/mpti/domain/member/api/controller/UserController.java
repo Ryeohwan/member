@@ -3,13 +3,13 @@ package mpti.domain.member.api.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mpti.common.errors.EmailDuplicateException;
 import mpti.domain.member.api.request.DateRequest;
 import mpti.domain.member.api.request.UserRequest;
 import mpti.domain.member.api.response.*;
 import mpti.domain.member.application.BusinessCommunication;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
-import mpti.domain.member.dao.MemoRepository;
 import mpti.domain.member.dto.BusinessDto;
 import mpti.domain.member.dto.BusinessRequest;
 import mpti.domain.member.dto.FileDto;
@@ -50,6 +50,9 @@ public class UserController {
     public ResponseEntity CheckEmailDuplicated(@PathVariable String email) {
         boolean result = userService.isEmailDuplicate(email);
         String responseMessage = result ? "DUPLICATED" : "NON-DUPLICATE";
+        if(result) {
+            throw new EmailDuplicateException(email);
+        }
         return ResponseEntity.ok().body(responseMessage);
     }
 

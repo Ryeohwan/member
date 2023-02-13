@@ -182,7 +182,7 @@ public class UserService {
             }
         }
 
-        mem.setUser(temp);
+        mem.setUserId(temp.getId());
         mem.setTrainerId(trainerId);
         mem.setRecord(memo);
         mem.setDate(LocalDate.now());
@@ -315,7 +315,7 @@ public class UserService {
     }
 
     public Page<Memo> findPtStatus(Long id,int page) {
-        PageRequest pageRequest = PageRequest.of(page,8,Sort.by(Sort.Direction.DESC,"id"));
+        PageRequest pageRequest = PageRequest.of(page,8);
         Page<Memo> result = memoRepository.findMemoByUserId(id,pageRequest);
 
         return result;

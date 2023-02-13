@@ -177,7 +177,7 @@ public class UserController {
 
         DateRequest form = gson.fromJson(requestBody, DateRequest.class);
 
-        
+
         Long id = form.getId();
         LocalDate date = form.getStopUntil();
         UserRequest temp = new UserRequest();

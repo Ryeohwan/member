@@ -16,10 +16,8 @@ public class Memo {
     @Column(name ="Memo_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 
+    private Long userId;
     @Column()
     private String record; // 일단 날짜랑 트레이너
 
@@ -30,9 +28,6 @@ public class Memo {
 
     private int core,chest, shoulder, biceps, triceps,back,legs,aerobic;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public void setRecord(String record) {
         this.record = record;
@@ -50,10 +45,14 @@ public class Memo {
     }
 
     @Builder
-    public Memo(Long id, User user, String memo) {
+    public Memo(Long id, Long userId, String memo) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.record = record;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setId(Long id) {

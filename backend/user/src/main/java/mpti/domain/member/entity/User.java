@@ -37,10 +37,6 @@ public class User {
 
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Memo> memoList = new ArrayList<>();
-
-
 
     @Column(unique = true)
     @Email

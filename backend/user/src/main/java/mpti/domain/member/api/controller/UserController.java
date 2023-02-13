@@ -13,6 +13,7 @@ import mpti.domain.member.application.S3Service;
 import mpti.domain.member.dto.BusinessDto;
 import mpti.domain.member.dto.BusinessRequest;
 import mpti.domain.member.dto.FileDto;
+import mpti.domain.member.dto.StatusDto;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -194,7 +195,7 @@ public class UserController {
     @PostMapping("pt/status/{page}")
     public ResponseEntity userPtStatus(@PathVariable int page, @RequestBody UserRequest form){
         Long id = form.getId();
-        Page<Memo> result = userService.findPtStatus(id,page);
+        Page<StatusDto> result = userService.findPtStatus(id,page);
         return ResponseEntity.ok(result);
     }
 

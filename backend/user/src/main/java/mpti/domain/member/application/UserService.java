@@ -9,6 +9,7 @@ import mpti.domain.member.api.response.UserStatus;
 import mpti.domain.member.dao.MemoRepository;
 import mpti.domain.member.dao.UserRepository;
 import mpti.domain.member.dto.BusinessRequest;
+import mpti.domain.member.dto.StatusDto;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
 import org.springframework.data.domain.Page;
@@ -313,10 +314,46 @@ public class UserService {
         return userPage;
     }
 
-    public Page<Memo> findPtStatus(Long id,int page) {
+    public Page<StatusDto> findPtStatus(Long id,int page) {
         PageRequest pageRequest = PageRequest.of(page,4);
-        Page<Memo> result = memoRepository.findMemoByUserId(id,pageRequest);
+        List<Memo> temp = memoRepository.findMemoByUserId(id);
+        List<StatusDto> result = new ArrayList<>();
+        for (Memo a:temp) {
+            StatusDto b = new StatusDto();
+            List<String> c = new ArrayList<>();
+            if(a.getCore() != 0){
+                c.add("core");
+            }
+            if(a.getLegs() != 0){
+                c.add("legs");
+            }
+            if(a.getChest() != 0){
+                c.add("chest");
+            }
+            if(a.getBack() != 0){
+                c.add("back");
+            }
+            if(a.getBiceps() != 0){
+                c.add("biceps");
+            }
+            if(a.getAerobic() != 0){
+                c.add("aerobic");
+            }
+            if(a.getShoulder() != 0){
+                c.add("shoulder");
+            }
+            if(a.getTriceps() != 0){
+                c.add("triceps");
+            }
+            b.setPart(c);
+            b.setDate(a.getDate());
+            b.setRecord(a.getRecord());
+            result.add(b);
+        }
+        int start = (int) pageRequest.getOffset();
+        int end  = (start + pageRequest.getPageSize()) > result.size() ? result.size() : (start + pageRequest.getPageSize());
+        Page<StatusDto> statusPage = new PageImpl<>(result.subList(start,end), pageRequest, result.size());
 
-        return result;
+        return statusPage;
     }
 }

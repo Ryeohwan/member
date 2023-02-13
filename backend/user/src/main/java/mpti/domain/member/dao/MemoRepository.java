@@ -12,5 +12,5 @@ public interface MemoRepository extends JpaRepository<Memo,Long> {
     @Override
     <S extends Memo> S save(S entity);
 
-    Page<Memo> findMemoByUserId(Long id, PageRequest pageRequest);
+    List<Memo> findMemoByUserId(Long id);
 }

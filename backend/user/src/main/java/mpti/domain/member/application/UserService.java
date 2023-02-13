@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,8 @@ import java.util.Set;
 public class UserService {
     private final UserRepository userRepository;
     private final MemoRepository memoRepository;
+
+    private final PasswordEncoder passwordEncoder;
     private EntityManager em;
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
@@ -56,7 +59,7 @@ public class UserService {
                 .name(user.getName())
                 .createAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
-                .password(user.getPassword())
+                .password(passwordEncoder.encode(user.getPassword()))
                 .stopUntil(LocalDate.now().minusDays(1))
                 .build();
 
@@ -261,6 +264,7 @@ public class UserService {
             temp.setLegs(a.getLegs());
             temp.setTriceps(a.getTriceps());
             temp.setRole(a.getRole());
+
             userRepository.save(temp);
         }
 

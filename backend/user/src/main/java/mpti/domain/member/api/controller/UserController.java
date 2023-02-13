@@ -1,5 +1,6 @@
 package mpti.domain.member.api.controller;
 
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mpti.domain.member.api.request.DateRequest;
@@ -40,6 +41,8 @@ public class UserController {
     private final BusinessCommunication businessCommunication;
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
+
+    private final Gson gson;
 
 
     // email 중복체크
@@ -170,7 +173,11 @@ public class UserController {
 
     @PostMapping("/admin/stop")
     @ResponseBody
-    public ResponseEntity adminStop(@RequestBody DateRequest form){
+    public ResponseEntity adminStop(@RequestBody String requestBody){
+
+        DateRequest form = gson.fromJson(requestBody, DateRequest.class);
+
+        
         Long id = form.getId();
         LocalDate date = form.getStopUntil();
         UserRequest temp = new UserRequest();
@@ -182,7 +189,8 @@ public class UserController {
 
 
     @PostMapping("pt/status/{page}")
-    public ResponseEntity userPtStatus(@PathVariable int page, @RequestBody Long id){
+    public ResponseEntity userPtStatus(@PathVariable int page, @RequestBody UserRequest form){
+        Long id = form.getId();
         Page<Memo> result = userService.findPtStatus(id,page);
         return ResponseEntity.ok(result);
     }

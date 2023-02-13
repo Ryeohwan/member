@@ -266,6 +266,7 @@ public class UserService {
             temp.setLegs(a.getLegs());
             temp.setTriceps(a.getTriceps());
             temp.setRole(a.getRole());
+            temp.setStopUntil(LocalDate.now().minusDays(1));
 
             userRepository.save(temp);
         }
@@ -318,7 +319,5 @@ public class UserService {
         Page<Memo> result = memoRepository.findMemoByUserId(id,pageRequest);
 
         return result;
-
-
     }
 }

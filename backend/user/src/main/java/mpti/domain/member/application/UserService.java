@@ -83,6 +83,7 @@ public class UserService {
         result.setUpdateAt(user1.getUpdateAt());
         result.setGender(user1.getGender());
         result.setS3Url(user1.getS3Url());
+        result.setId(user1.getId());
         return result;
     }
 
@@ -115,7 +116,7 @@ public class UserService {
         temp.setAddress(check.getAddress());
         temp.setBirth(check.getBirth());
         temp.setName(check.getName());
-        temp.setPassword(check.getPassword());
+        temp.setPassword(passwordEncoder.encode(check.getPassword()));
         temp.setGender(check.getGender());
         temp.setUpdateAt(LocalDateTime.now());
         String result = temp.getName();

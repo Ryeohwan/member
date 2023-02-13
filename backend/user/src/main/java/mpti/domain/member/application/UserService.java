@@ -348,7 +348,7 @@ public class UserService {
             b.setPart(c);
             b.setDate(a.getDate());
             b.setRecord(a.getRecord());
-            b.setId(a.getUserId());
+            b.setUserId(a.getUserId());
             result.add(b);
         }
         int start = (int) pageRequest.getOffset();

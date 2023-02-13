@@ -24,7 +24,7 @@ public class StatusDto {
         this.record = record;
     }
 
-    public void setId(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

@@ -7,7 +7,7 @@ public class TraineeListResponse {
     private Long id;
     private String email;
     private String Gender;
-
+    private int age;
     private String name;
     private String s3Url;
 
@@ -35,5 +35,9 @@ public class TraineeListResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

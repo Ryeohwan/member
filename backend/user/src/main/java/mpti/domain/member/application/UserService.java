@@ -304,6 +304,7 @@ public class UserService {
             a.setName(userList.get(i).getName());
             a.setGender(userList.get(i).getGender());
             a.setEmail(userList.get(i).getEmail());
+            a.setAge(userList.get(i).getAge());
             a.setS3Url(userList.get(i).getS3Url());
             result.add(a);
         }

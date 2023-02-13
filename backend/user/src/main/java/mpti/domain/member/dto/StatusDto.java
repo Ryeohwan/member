@@ -10,6 +10,7 @@ public class StatusDto {
     private List<String> part;
     private LocalDate date;
     private String record;
+    private Long userId;
 
     public void setPart(List<String> part) {
         this.part = part;
@@ -21,5 +22,9 @@ public class StatusDto {
 
     public void setRecord(String record) {
         this.record = record;
+    }
+
+    public void setId(Long userId) {
+        this.userId = userId;
     }
 }

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table
@@ -25,7 +26,9 @@ public class Memo {
     @Column(name ="trainer_id")
     private Long trainerId;
 
-    private LocalDateTime date;
+    private LocalDate date;
+
+    private int core,chest, shoulder, biceps, triceps,back,legs,aerobic;
 
     public void setUser(User user) {
         this.user = user;
@@ -39,7 +42,7 @@ public class Memo {
         this.trainerId = trainerId;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -51,5 +54,41 @@ public class Memo {
         this.id = id;
         this.user = user;
         this.record = record;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCore(int core) {
+        this.core = core;
+    }
+
+    public void setChest(int chest) {
+        this.chest = chest;
+    }
+
+    public void setShoulder(int shoulder) {
+        this.shoulder = shoulder;
+    }
+
+    public void setBiceps(int biceps) {
+        this.biceps = biceps;
+    }
+
+    public void setTriceps(int triceps) {
+        this.triceps = triceps;
+    }
+
+    public void setBack(int back) {
+        this.back = back;
+    }
+
+    public void setLegs(int legs) {
+        this.legs = legs;
+    }
+
+    public void setAerobic(int aerobic) {
+        this.aerobic = aerobic;
     }
 }

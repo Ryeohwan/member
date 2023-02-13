@@ -138,43 +138,50 @@ public class UserService {
         User temp = userRepository.findUserById(Long.parseLong(form.get(0)));
         Long trainerId = Long.parseLong(form.get(1));
         String memo = "";
-
+        Memo mem = new Memo();
         for (int i = 1 ; i< form.size();i++) {
             switch (form.get(i)){
                 case "biceps":
                     temp.setBiceps(1);
+                    mem.setBiceps(1);
                     break;
                 case "triceps":
                     temp.setTriceps(1);
+                    mem.setTriceps(1);
                     break;
                 case "back":
                     temp.setBack(1);
+                    mem.setBack(1);
                     break;
                 case "legs":
                     temp.setLegs(1);
                     break;
                 case "chest":
                     temp.setChest(1);
+                    mem.setChest(1);
                     break;
                 case "aerobic":
                     temp.setAerobic(1);
+                    mem.setAerobic(1);
                     break;
                 case "core":
                     temp.setCore(1);
+                    mem.setCore(1);
                     break;
                 case "shoulder":
                     temp.setShoulder(1);
+                    mem.setShoulder(1);
                     break;
                 default:
                     memo = form.get(i);
                     break;
             }
         }
-        Memo mem = new Memo();
+
         mem.setUser(temp);
         mem.setTrainerId(trainerId);
         mem.setRecord(memo);
-        mem.setDate(LocalDateTime.now());
+        mem.setDate(LocalDate.now());
         memoRepository.save(mem);
 
         temp.setUpdateAt(LocalDateTime.now());
@@ -269,6 +276,10 @@ public class UserService {
             userList.add(userRepository.findUserById(a.getId()));
         }
 
+        for (User a : userList) {
+            System.out.println(a.getName());
+        }
+
         List<TraineeListResponse> result = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {
             TraineeListResponse a = new TraineeListResponse();
@@ -293,5 +304,14 @@ public class UserService {
         Page<TraineeListResponse> userPage = new PageImpl<>(result, pageRequest, result.size());
 
         return userPage;
+    }
+
+    public Page<Memo> findPtStatus(Long id,int page) {
+        PageRequest pageRequest = PageRequest.of(page,8,Sort.by(Sort.Direction.DESC,"id"));
+        Page<Memo> result = memoRepository.findMemoByUserId(id,pageRequest);
+
+        return result;
+
+
     }
 }

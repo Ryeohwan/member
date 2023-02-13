@@ -46,8 +46,8 @@ public class BusinessCommunication {
 
 
     public List<BusinessDto> getIds(Long id) {
+        System.out.println("왔다");
         String trainer = id.toString();
-        SERVER_URL += "/"+trainer;
 
         BusinessDto bdto = new BusinessDto();
         bdto.setTrainerId(id);
@@ -56,14 +56,13 @@ public class BusinessCommunication {
 
         RequestBody requestBody = RequestBody.create(MediaType.get("application/json; charset=utf-8"), json);
         Request request = new Request.Builder()
-                .url(SERVER_URL)
+                .url(SERVER_URL+"/"+trainer)
                 .build();
+        System.out.println(request.url());
 
         Type type = new TypeToken<List<BusinessDto>>() {}.getType();
 
         List<BusinessDto> list = new ArrayList<>();
-
-
 
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()){
@@ -73,6 +72,7 @@ public class BusinessCommunication {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
             return list;
     }
 }

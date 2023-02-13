@@ -8,9 +8,11 @@ import mpti.domain.member.api.response.*;
 import mpti.domain.member.application.BusinessCommunication;
 import mpti.domain.member.application.FileService;
 import mpti.domain.member.application.S3Service;
+import mpti.domain.member.dao.MemoRepository;
 import mpti.domain.member.dto.BusinessDto;
 import mpti.domain.member.dto.BusinessRequest;
 import mpti.domain.member.dto.FileDto;
+import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -139,17 +141,14 @@ public class UserController {
     public ResponseEntity findUserList(@PathVariable Long page ,@RequestBody UserRequest form){
         // trainer_ id
         List<BusinessDto> list = businessCommunication.getIds(form.getId());
-
         List<BusinessRequest> temp = new ArrayList<>();
         for (BusinessDto a: list) {
             BusinessRequest b = new BusinessRequest();
-            b.setId(a.getId());
+            b.setId(a.getUserId());
             b.setHour(a.getHour());
             temp.add(b);
         }
-        Set<BusinessRequest> sorted = new HashSet<>(temp);
-        List<BusinessRequest> ids = new ArrayList<>(sorted);
-        Page<TraineeListResponse> result = userService.findTrainee(ids,page);
+        Page<TraineeListResponse> result = userService.findTrainee(temp,page);
         return ResponseEntity.ok(result);
     }
 
@@ -181,8 +180,12 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-//    @GetMapping("/userMemo/{trainerid}")
-//    public ResponseEntity CheckEmailDuplicated(@PathVariable String trainerid) {
-//    }
+
+    @PostMapping("pt/status/{page}")
+    public ResponseEntity userPtStatus(@PathVariable int page, @RequestBody Long id){
+        Page<Memo> result = userService.findPtStatus(id,page);
+        return ResponseEntity.ok(result);
+    }
+
 
 }

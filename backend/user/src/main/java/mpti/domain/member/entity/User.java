@@ -37,13 +37,8 @@ public class User {
 
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Memo> memoList = new ArrayList<>();
 
-    public void addMemo(Memo memo){
-        memoList.add(memo);
-        memo.setUser(this);
-    }
+
 
 
     @Column(unique = true)
@@ -124,9 +119,6 @@ public class User {
 
     public void setProvider(String provider) {if(provider != null)this.provider = provider;}
 
-    public void setMemoList(List<Memo> memoList) {
-        this.memoList = memoList;
-    }
 
     public void setRole(String role) {
         this.role = role;

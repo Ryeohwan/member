@@ -299,10 +299,10 @@ public class UserService {
             a.setS3Url(userList.get(i).getS3Url());
             result.add(a);
         }
-
-
         PageRequest pageRequest = PageRequest.of(nPage, 8);
-        Page<TraineeListResponse> userPage = new PageImpl<>(result, pageRequest, result.size());
+        int start = (int) pageRequest.getOffset();
+        int end  = (start + pageRequest.getPageSize()) > result.size() ? result.size() : (start + pageRequest.getPageSize());
+        Page<TraineeListResponse> userPage = new PageImpl<>(result.subList(start,end), pageRequest, result.size());
 
         return userPage;
     }

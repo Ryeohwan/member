@@ -47,7 +47,7 @@ public class UserController {
     public ResponseEntity CheckEmailDuplicated(@PathVariable String email) {
         boolean result = userService.isEmailDuplicate(email);
         String responseMessage = result ? "DUPLICATED" : "NON-DUPLICATE";
-        return ResponseEntity.ok(responseMessage);
+        return ResponseEntity.ok().body(responseMessage);
     }
 
 

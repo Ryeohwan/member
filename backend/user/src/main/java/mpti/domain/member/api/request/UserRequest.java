@@ -40,6 +40,7 @@ public class UserRequest {
 
     String s3Url;
 
+
     String role;
 
     private int core,chest, shoulder, biceps, triceps,back,legs,aerobic;
@@ -77,6 +78,8 @@ public class UserRequest {
     public void setAerobic(int aerobic) {
         this.aerobic = aerobic;
     }
+
+
 
     public UserRequest() {
     }

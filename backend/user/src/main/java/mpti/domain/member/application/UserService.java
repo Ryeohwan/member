@@ -57,6 +57,7 @@ public class UserService {
                 .birth(user.getBirth())
                 .gender(user.getGender())
                 .name(user.getName())
+                .age(user.getAge())
                 .createAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
                 .password(passwordEncoder.encode(user.getPassword()))
@@ -108,9 +109,8 @@ public class UserService {
 
     public String update(UserRequest check){
         String email = check.getEmail();
-        String password = check.getPassword();
         System.out.println(email);
-        User temp = userRepository.findUserByEmailAndPassword(email,password);
+        User temp = userRepository.findUserByEmail(email);
         temp.setPhone(check.getPhone());
         temp.setAddress(check.getAddress());
         temp.setBirth(check.getBirth());
@@ -217,6 +217,7 @@ public class UserService {
                 .name(m.getName())
                 .email(m.getEmail())
                 .gender(m.getGender())
+                .age(m.getAge())
                 .birth(m.getBirth())
                 .phone(m.getPhone())
                 .s3Url(m.getS3Url())
@@ -254,7 +255,8 @@ public class UserService {
             temp.setAddress(a.getAddress());
             temp.setEmail(a.getEmail());
             temp.setPhone(a.getPhone());
-            temp.setPassword(a.getPassword());
+            temp.setAge(a.getAge());
+            temp.setPassword(passwordEncoder.encode(a.getPassword()));
             temp.setShoulder(a.getShoulder());
             temp.setCore(a.getCore());
             temp.setAerobic(a.getAerobic());

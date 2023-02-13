@@ -69,7 +69,7 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate stopUntil;
 
-
+    private int age;
     private String provider;
 
     @Column(columnDefinition = "integer default 0")
@@ -92,6 +92,10 @@ public class User {
     public void setEmail(String email) {
 
         if(email != null) this.email = email;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public void setName(String name) {
@@ -190,7 +194,7 @@ public class User {
     }
 
     @Builder
-    public User(long id, String name, Memo memo, String email, String role, String password,  String gender, Date birth,
+    public User(long id, String name,int age, Memo memo, String email, String role, String password,  String gender, Date birth,
                 String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
         this.id = id;
         this.name = name;
@@ -199,6 +203,7 @@ public class User {
         this.password = password;
         this.gender = gender;
         this.phone = phone;
+        this.age = age;
         this.birth = birth;
         this.address = address;
         this.createAt = createAt;

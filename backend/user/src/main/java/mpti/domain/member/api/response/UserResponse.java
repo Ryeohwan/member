@@ -16,10 +16,11 @@ public class UserResponse {
     // 회원가입했을 때 담아서 갈 response
     Long id;
     String name;
+
+    int age;
     String email;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     Date birth;
-    int age;
     String gender;
     String phone;
     String address;
@@ -38,10 +39,11 @@ public class UserResponse {
     }
 
     @Builder
-    public UserResponse(Long id, String name, String email, Date birth, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
+    public UserResponse(Long id, String name, int age,String email, Date birth, String gender, String phone, String address, LocalDateTime createAt, LocalDateTime updateAt, String s3Url, LocalDate stopUntil) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.age = age;
         this.gender = gender;
         this.birth = birth;
         this.phone = phone;
@@ -51,6 +53,8 @@ public class UserResponse {
         this.s3Url = s3Url;
         this.stopUntil = stopUntil;
     }
+
+
 
     public void setId(Long id) {
         this.id = id;

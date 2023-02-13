@@ -57,6 +57,7 @@ public class UserService {
                 .createAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
                 .password(user.getPassword())
+                .stopUntil(LocalDate.now().minusDays(1))
                 .build();
 
 //        System.out.println("result = " + result);

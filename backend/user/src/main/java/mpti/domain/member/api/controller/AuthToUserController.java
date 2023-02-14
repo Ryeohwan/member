@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -67,6 +68,7 @@ public class AuthToUserController {
         user.setEmail(socialSignUpRequest.getEmail());
         user.setPassword(passwordEncoder.encode(socialSignUpRequest.getPassword()));
         user.setProvider(socialSignUpRequest.getProvider());
+        user.setStopUntil(LocalDate.now().minusDays(1));
 
         return userRepository.saveAndFlush(user);
     }

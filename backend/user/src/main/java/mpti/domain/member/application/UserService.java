@@ -10,6 +10,7 @@ import mpti.domain.member.dao.MemoRepository;
 import mpti.domain.member.dao.UserRepository;
 import mpti.domain.member.dto.BusinessRequest;
 import mpti.domain.member.dto.StatusDto;
+import mpti.domain.member.dto.ptOrderDto;
 import mpti.domain.member.entity.Memo;
 import mpti.domain.member.entity.User;
 import org.springframework.data.domain.Page;
@@ -320,32 +321,31 @@ public class UserService {
         List<StatusDto> result = new ArrayList<>();
         for (Memo a:temp) {
             StatusDto b = new StatusDto();
-            List<String> c = new ArrayList<>();
+            ptOrderDto c = new ptOrderDto();
             if(a.getChest() != 0){
-                c.add("chest");
+                c.setChest("chest");
             }
             if(a.getShoulder() != 0){
-                c.add("shoulder");
+                c.setShoulder("shoulder");
             }
             if(a.getBiceps() != 0){
-                c.add("biceps");
+                c.setBiceps("biceps");
             }
             if(a.getTriceps() != 0){
-                c.add("triceps");
+                c.setTriceps("triceps");
             }
             if(a.getBack() != 0){
-                c.add("back");
+                c.setBack("back");
             }
             if(a.getCore() != 0){
-                c.add("core");
+                c.setCore("core");
             }
             if(a.getLegs() != 0){
-                c.add("legs");
+                c.setLegs("legs");
             }
             if(a.getAerobic() != 0){
-                c.add("aerobic");
+                c.setAerobic("aerobic");
             }
-
 
             b.setPart(c);
             b.setDate(a.getDate());

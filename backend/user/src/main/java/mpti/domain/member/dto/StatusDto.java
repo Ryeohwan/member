@@ -7,12 +7,12 @@ import java.util.List;
 
 @Getter
 public class StatusDto {
-    private List<String> part;
+    private ptOrderDto part;
     private LocalDate date;
     private String record;
     private Long userId;
 
-    public void setPart(List<String> part) {
+    public void setPart(ptOrderDto part) {
         this.part = part;
     }
 

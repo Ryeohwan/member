@@ -321,30 +321,32 @@ public class UserService {
         for (Memo a:temp) {
             StatusDto b = new StatusDto();
             List<String> c = new ArrayList<>();
+            if(a.getChest() != 0){
+                c.add("chest");
+            }
+            if(a.getShoulder() != 0){
+                c.add("shoulder");
+            }
+            if(a.getBiceps() != 0){
+                c.add("biceps");
+            }
+            if(a.getTriceps() != 0){
+                c.add("triceps");
+            }
+            if(a.getBack() != 0){
+                c.add("back");
+            }
             if(a.getCore() != 0){
                 c.add("core");
             }
             if(a.getLegs() != 0){
                 c.add("legs");
             }
-            if(a.getChest() != 0){
-                c.add("chest");
-            }
-            if(a.getBack() != 0){
-                c.add("back");
-            }
-            if(a.getBiceps() != 0){
-                c.add("biceps");
-            }
             if(a.getAerobic() != 0){
                 c.add("aerobic");
             }
-            if(a.getShoulder() != 0){
-                c.add("shoulder");
-            }
-            if(a.getTriceps() != 0){
-                c.add("triceps");
-            }
+
+
             b.setPart(c);
             b.setDate(a.getDate());
             b.setRecord(a.getRecord());

@@ -61,9 +61,9 @@ public class SecurityConfig {
 //                .anyRequest()
 //                .authenticated()
 //                .and();
-
-        // 토큰 유효성 검사 필터
-        httpSecurity.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//
+//        // 토큰 유효성 검사 필터
+//        httpSecurity.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }

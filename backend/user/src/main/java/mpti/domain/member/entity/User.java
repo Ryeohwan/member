@@ -84,7 +84,7 @@ public class User {
     public User() {
     }
 
-
+    // 유효성 검사 추가 예정
     public void setEmail(String email) {
 
         if(email != null) this.email = email;

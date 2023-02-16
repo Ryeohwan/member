@@ -66,6 +66,7 @@ public class AuthToUserController {
         User user = new User();
         user.setName(socialSignUpRequest.getName());
         user.setEmail(socialSignUpRequest.getEmail());
+        user.setBirth(socialSignUpRequest.getBirth());
         user.setPassword(passwordEncoder.encode(socialSignUpRequest.getPassword()));
         user.setProvider(socialSignUpRequest.getProvider());
         user.setStopUntil(LocalDate.now().minusDays(1));
@@ -101,7 +102,6 @@ public class AuthToUserController {
     @GetMapping("/test")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<?> test(@AuthenticationPrincipal UserPrincipal userPrincipal) {
-        System.out.println(userPrincipal.getEmail());
         return ResponseEntity.ok("토큰 테스트 완료");
     }
 }

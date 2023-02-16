@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 /**
  * 최초 소셜로그인시 회원가입 될때 사용 -> 추가 정보 필요?!
@@ -25,5 +26,7 @@ public class SocialSignUpRequest {
     private String password;
 
     private String provider;
+
+    private LocalDate birth;
 
 }

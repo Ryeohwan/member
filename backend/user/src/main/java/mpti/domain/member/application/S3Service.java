@@ -47,7 +47,6 @@ public class S3Service {
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
-            System.out.println(metadata);
             metadata.setContentType(contentType);
             amazonS3.putObject(new PutObjectRequest(bucket, user, multipartFile.getInputStream(), metadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
@@ -61,9 +60,9 @@ public class S3Service {
         ListObjectsV2Result listObjectsV2Result = amazonS3.listObjectsV2(bucket);
         List<S3ObjectSummary> objectSummaries = listObjectsV2Result.getObjectSummaries();
 
-        for (S3ObjectSummary object: objectSummaries) {
-            System.out.println("object = " + object.toString());
-        }
+//        for (S3ObjectSummary object: objectSummaries) {
+//            System.out.println("object = " + object.toString());
+//        }
 
         String temp = amazonS3.getUrl(bucket, user).toString();
         String https = temp.split("//")[0];

@@ -46,7 +46,7 @@ public class BusinessCommunication {
 
 
     public List<BusinessDto> getIds(Long id) {
-        System.out.println("왔다");
+
         String trainer = id.toString();
 
         BusinessDto bdto = new BusinessDto();
@@ -58,7 +58,6 @@ public class BusinessCommunication {
         Request request = new Request.Builder()
                 .url(SERVER_URL+"/"+trainer)
                 .build();
-        System.out.println(request.url());
 
         Type type = new TypeToken<List<BusinessDto>>() {}.getType();
 

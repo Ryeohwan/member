@@ -73,7 +73,6 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResponse findByEmail(String email){
-        System.out.println(email);
         User user1 = userRepository.findUserByEmail(email);
         UserResponse result = new UserResponse();
         result.setEmail(user1.getEmail());
@@ -92,7 +91,6 @@ public class UserService {
 
     public String delete(String email, String name){
         int check = userRepository.deleteUserByEmailAndPassword(email,name);
-        System.out.println(check);
         if(userRepository.deleteUserByEmailAndPassword(email,name) == 1){
             return SUCCESS;
         }else{
@@ -102,7 +100,6 @@ public class UserService {
 
     public String delete(String email){
         int check = userRepository.deleteUserByEmail(email);
-        System.out.println(check);
         if( check == 1){
             return SUCCESS;
         }else{
@@ -112,7 +109,6 @@ public class UserService {
 
     public String update(UserRequest check){
         String email = check.getEmail();
-        System.out.println(email);
         User temp = userRepository.findUserByEmail(email);
         temp.setPhone(check.getPhone());
         temp.setAddress(check.getAddress());
@@ -122,7 +118,6 @@ public class UserService {
         temp.setGender(check.getGender());
         temp.setUpdateAt(LocalDateTime.now());
         String result = temp.getName();
-        System.out.println(result);
         return result;
     }
 
@@ -213,7 +208,6 @@ public class UserService {
 
 
     public Page<UserResponse> findList(int page,long id) {
-        System.out.println(page+","+id);
         PageRequest pageRequest = PageRequest.of(page, 8, Sort.by(Sort.Direction.DESC, "email"));
         Page<User> result = userRepository.findPageById(id, pageRequest);
         Page<UserResponse> toMap = result.map(m -> UserResponse.builder()

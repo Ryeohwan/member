@@ -66,7 +66,7 @@ public class UserService {
                 .stopUntil(LocalDate.now().minusDays(1))
                 .build();
 
-//        System.out.println("result = " + result);
+//        System.out.println("result = " + result); //
         userRepository.save(result);
         return result.getName();
     }
